@@ -22,7 +22,7 @@ dao.read(request.getParameter("num"));
 전화번호 / <%=DB.dto.tel%> <br><%
 %>
 
-<br><a href="board_ALL.jsp">뒤로</a>
+<br><a href="board_ALL.jsp?currentPage=<%=request.getParameter("currentPage")%>&sort=<%=request.getParameter("sort")%>&keyword=<%=request.getParameter("keyword")%>">뒤로</a>
 <br><a href="delete?num=<%=DB.dto.num%>">삭제</a>
 <br><a href="edit.jsp?num=<%=DB.dto.num%>">수정</a>
 </body>

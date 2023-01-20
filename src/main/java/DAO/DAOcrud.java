@@ -9,11 +9,11 @@ import DTO.DTOres;
 public class DAOcrud extends DAO {
 	
 	//리스트
-	public ArrayList<DTOres> listAll(String sort) {
+	public ArrayList<DTOres> list(String sort, int currentPage) {
 		sort = sortSwitch(sort); // 정렬기준을 SQL 쿼리문에 맞게 변환
 		ArrayList<DTOres> list = new ArrayList<DTOres>();		
 		openDB();
-		String query = String.format("select *from %s order by %s", DB.SERVER_BOARD, sort);
+		String query = String.format("select *from %s order by %s limit %s, %s", DB.SERVER_BOARD, sort, (currentPage-1)*DB.PAGINGNUM, DB.PAGINGNUM);
 		try {
 			rs = st.executeQuery(query);
 			while(rs.next()) { 
@@ -39,6 +39,9 @@ public class DAOcrud extends DAO {
 	public String sortSwitch(String sort) {
 		switch(sort) {
 		case "최신순" : return "fm_num desc";
+		case "오래된순" : return "fm_num ";
+		case "평점높은순" : return "fm_point desc";
+		case "평점낮은순" : return "fm_point ";
 		default:
 		}
 		return "fm_num desc"; // 기본 > 최신순
@@ -73,6 +76,7 @@ public class DAOcrud extends DAO {
 		String query = String.format("insert into %s (fm_title,fm_id,fm_text,fm_point,fm_adress,fm_tel) value ('%s', '%s', '%s', '%s', '%s', '%s')",
 				DB.SERVER_BOARD, DB.dto.title, DB.dto.id, DB.dto.text, DB.dto.point, DB.dto.adress, DB.dto.tel);
 		try {
+			System.out.println(query);
 			st.executeUpdate(query);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -105,5 +109,38 @@ public class DAOcrud extends DAO {
 		closeDB();
 	}
 	
+	//전체 포스트 수
+	public String countPostDB() {
+		openDB();
+		String query = String.format("select count(*) from %s", DB.SERVER_BOARD);
+		String mountPost = "";
+		try {
+			rs = st.executeQuery(query);
+			rs.next();
+			mountPost = rs.getString("count(*)");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		closeDB();
+		return mountPost;
+	}
+	
+	//전체 페이지 수
+	public int countPageDB(String strTemp) {
 
+		int mountPost = Integer.parseInt(strTemp);
+		int mountPage;
+		
+		if(mountPost==0) { return 1; }
+		else if(mountPost%DB.PAGINGNUM==0) {
+			mountPage = mountPost/DB.PAGINGNUM;
+		}
+		else {
+			mountPage = mountPost/DB.PAGINGNUM + 1;
+		}
+		
+		return mountPage;
+	}
+	
+	
 }

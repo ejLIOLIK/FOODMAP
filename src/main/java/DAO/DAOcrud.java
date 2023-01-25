@@ -1,7 +1,6 @@
 package DAO;
 
 import java.sql.SQLException;
-import java.text.Format;
 import java.util.ArrayList;
 
 import DB.DB;
@@ -77,7 +76,7 @@ public class DAOcrud extends DAO {
 		String query = String.format("insert into %s (fm_title,fm_id,fm_text,fm_adress,fm_tel) value ('%s', '%s', '%s', '%s', '%s')",
 				DB.SERVER_BOARD, DB.dto.title, DB.dto.id, DB.dto.text, DB.dto.adress, DB.dto.tel);
 		try {
-			System.out.println(query);
+			//System.out.println(query);
 			st.executeUpdate(query);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -143,11 +142,10 @@ public class DAOcrud extends DAO {
 		return mountPage;
 	}
 	
-	//별점 업데이트
-	public void countPointUpdate(String postNum, double point) {
+	//리플 수 +1
+	public void upReplyNum(String postNum) {
 		openDB();
-		String query = String.format("update %s set fm_point='%f' where fm_num = %s",
-				DB.SERVER_BOARD, point, postNum);
+		String query = String.format("update %s set fm_reply = fm_reply+1 where fm_num = %s", DB.SERVER_BOARD, postNum);
 		try {
 			st.executeUpdate(query);
 		} catch (Exception e) {
@@ -156,10 +154,10 @@ public class DAOcrud extends DAO {
 		closeDB();
 	}
 	
-	//리플 수 +1
-	public void upReplyNum(String postNum) {
+	//리플 수 -1
+	public void downReplyNum(String postNum) {
 		openDB();
-		String query = String.format("update %s set fm_reply = fm_reply+1 where fm_num = %s", DB.SERVER_BOARD, postNum);
+		String query = String.format("update %s set fm_reply = fm_reply-1 where fm_num = %s", DB.SERVER_BOARD, postNum);
 		try {
 			st.executeUpdate(query);
 		} catch (Exception e) {

@@ -24,5 +24,10 @@ public class DTOreply {
 		this.point	=point	;
 		this.text	=text	;
 	}
+	
+	public DTOreply(String point, String text) { // EDIT
+		this.point	=point	;
+		this.text	=text	;
+	}
 }
 

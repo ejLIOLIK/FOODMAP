@@ -22,7 +22,7 @@ public class replyWrite extends HttpServlet {
 		DAOreply daoR = new DAOreply();
 		daoR.write();
 		daoR.upReplyNum(DB.dtoR.Pnum);
-		daoR.countPointUpdate(DB.dtoR.Pnum, daoR.countPointDB(DB.dtoR.Pnum)/daoR.countReplyDB(DB.dtoR.Pnum));
+		daoR.countPointUpdate(DB.dtoR.Pnum);
 		
 		String query = String.format("read.jsp?num=%s&currentPage=%s&sort=%s&keyword=%s"
 				, DB.dtoR.Pnum, request.getParameter("currentPage"), request.getParameter("sort"), request.getParameter("keyword"));

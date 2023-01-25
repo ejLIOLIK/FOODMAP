@@ -24,23 +24,29 @@ public class DTOres {
 		this.point	=point	;
 		this.adress	=adress	;
 		this.tel	=tel	;
+		
+		if(this.point.equals("-1.0")) {
+			this.point = "미평가";
+		}
+		else {
+			this.point=this.point.substring(0, 3);
+		}
 	}
 	
-	public DTOres(String title, String id, String text, String point, String adress, String tel) {
+	public DTOres(String title, String id, String text, String adress, String tel) {
 		this.title	=title	;
 		this.id		=id		;
 		this.text	=text	;
-		this.point	=point	;
 		this.adress	=adress	;
 		this.tel	=tel	;
 	}
 	
-	public DTOres(String title, String text, String point, String adress, String tel) {
+	public DTOres(String title, String text, String adress, String tel) { // EDIT
 		this.title	=title	;
 		this.text	=text	;
-		this.point	=point	;
 		this.adress	=adress	;
 		this.tel	=tel	;
+
 	}
 }
 

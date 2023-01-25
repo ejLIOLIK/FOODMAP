@@ -1,6 +1,7 @@
 package DAO;
 
 import java.sql.SQLException;
+import java.text.Format;
 import java.util.ArrayList;
 
 import DB.DB;
@@ -73,8 +74,8 @@ public class DAOcrud extends DAO {
 	//쓰기
 	public void write() {
 		openDB();
-		String query = String.format("insert into %s (fm_title,fm_id,fm_text,fm_point,fm_adress,fm_tel) value ('%s', '%s', '%s', '%s', '%s', '%s')",
-				DB.SERVER_BOARD, DB.dto.title, DB.dto.id, DB.dto.text, DB.dto.point, DB.dto.adress, DB.dto.tel);
+		String query = String.format("insert into %s (fm_title,fm_id,fm_text,fm_adress,fm_tel) value ('%s', '%s', '%s', '%s', '%s')",
+				DB.SERVER_BOARD, DB.dto.title, DB.dto.id, DB.dto.text, DB.dto.adress, DB.dto.tel);
 		try {
 			System.out.println(query);
 			st.executeUpdate(query);
@@ -87,8 +88,8 @@ public class DAOcrud extends DAO {
 	//수정
 	public void edit(String editNum) {
 		openDB();
-		String query = String.format("update %s set fm_title='%s', fm_text='%s', fm_point='%s', fm_adress='%s', fm_tel='%s' where fm_num = %s",
-				DB.SERVER_BOARD, DB.dto.title, DB.dto.text, DB.dto.point, DB.dto.adress, DB.dto.tel, editNum);
+		String query = String.format("update %s set fm_title='%s', fm_text='%s', fm_adress='%s', fm_tel='%s' where fm_num = %s",
+				DB.SERVER_BOARD, DB.dto.title, DB.dto.text, DB.dto.adress, DB.dto.tel, editNum);
 		try {
 			st.executeUpdate(query);
 		} catch (Exception e) {
@@ -142,5 +143,28 @@ public class DAOcrud extends DAO {
 		return mountPage;
 	}
 	
+	//별점 업데이트
+	public void countPointUpdate(String postNum, double point) {
+		openDB();
+		String query = String.format("update %s set fm_point='%f' where fm_num = %s",
+				DB.SERVER_BOARD, point, postNum);
+		try {
+			st.executeUpdate(query);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		closeDB();
+	}
 	
+	//리플 수 +1
+	public void upReplyNum(String postNum) {
+		openDB();
+		String query = String.format("update %s set fm_reply = fm_reply+1 where fm_num = %s", DB.SERVER_BOARD, postNum);
+		try {
+			st.executeUpdate(query);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		closeDB();
+	}
 }

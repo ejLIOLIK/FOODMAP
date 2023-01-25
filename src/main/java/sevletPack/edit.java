@@ -21,7 +21,6 @@ public class edit extends HttpServlet {
 		DAOcrud dao = new DAOcrud();
 		DB.dto = new DTOres(request.getParameter("title"), 
 				request.getParameter("text"), 
-				request.getParameter("point"), 
 				request.getParameter("adress"), 
 				request.getParameter("tel"));
 

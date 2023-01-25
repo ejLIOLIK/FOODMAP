@@ -1,5 +1,6 @@
 package DB;
 
+import DTO.DTOreply;
 import DTO.DTOres;
 
 public class DB {
@@ -12,6 +13,12 @@ public class DB {
 	public static String SERVER_BOARD = "BOARD_FOODMAP";
 	public static int PAGINGNUM = 5;
 	public static int PAGINGBLOCK = 5;
+
+	public static String SERVER_REPLY = "REPLY_FOODMAP";
+	public static int PAGINGREPLY = 10;
+	public static int PAGINGREPLYBLOCK = 5;
 	
 	public static DTOres dto;
+	public static DTOreply dtoR;
+	
 }

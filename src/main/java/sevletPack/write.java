@@ -25,7 +25,6 @@ public class write extends HttpServlet {
 		DB.dto = new DTOres(request.getParameter("title"), 
 				request.getParameter("id"), 
 				request.getParameter("text"), 
-				request.getParameter("point"), 
 				request.getParameter("adress"), 
 				request.getParameter("tel"));
 

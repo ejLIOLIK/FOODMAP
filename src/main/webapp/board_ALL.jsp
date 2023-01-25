@@ -42,6 +42,12 @@ if(request.getParameter("keyword")!=null){
 %>
 
 <form action = "board_ALL.jsp?keyword=<%=keyword%>">
+<select name="keywordRange">
+    <option value="제목">제목</option>
+    <option value="내용">내용</option>
+    <option value="제목+내용">제목+내용</option>
+    <option value="리플">리플</option>
+</select>
 <input type="search" name="keyword" value="<%=keyword%>" required="required">
 <input type="submit" value="🔍">
 </form>
@@ -73,8 +79,8 @@ else{
 }
 
 for(DTOres d:list){
-	%><%=d.num%>/<%=d.point %>/ 
-	<a href="read.jsp?num=<%=d.num%>&currentPage=<%=currentPage%>&sort=<%=sort%>&keyword=<%=keyword%>"><%= d.title %></a><br><%
+	%><%=d.num%>/<%=d.point%>/ 
+	<a href="read.jsp?num=<%=d.num%>&currentPage=<%=currentPage%>&sort=<%=sort%>&keyword=<%=keyword%>"><%= d.title %></a> [<%=d.reply%>]<br><%
 	countPost++;
 }
 if(countPost<DB.PAGINGNUM){

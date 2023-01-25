@@ -47,4 +47,20 @@ public class DAOsearch extends DAOcrud {
 		return mountPost;
 	}
 	
+	public String switchsearchRange(String searchRange) {
+		
+		String tmp = "fm_title"; //default값
+		
+		switch(searchRange) {
+		case "제목":
+			tmp = "fm_title";
+		case "내용" :
+			tmp = "fm_text";
+		//case "리플" :
+			default:
+		}
+		
+		return tmp;
+	}
+	
 }

@@ -11,8 +11,8 @@ public class DB {
 	public static String DB_PW = "root";
 	
 	public static String SERVER_BOARD = "BOARD_FOODMAP";
-	public static int PAGINGNUM = 5;
-	public static int PAGINGBLOCK = 5;
+	public static int PAGINGNUM = 10;
+	public static int PAGINGBLOCK = 10;
 
 	public static String SERVER_REPLY = "REPLY_FOODMAP";
 	public static int PAGINGREPLY = 10;

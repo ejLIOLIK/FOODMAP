@@ -9,12 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-<% 
-DAOcrud dao = new DAOcrud();
-dao.read(request.getParameter("num"));
-
-%>번호 / <%=DB.dto.num%> <br>
+번호 / <%=DB.dto.num%> <br>
 제목 / <%=DB.dto.title%> [<%=DB.dto.reply%>] <br>
 내용 / <%=DB.dto.text%> <br>
 평점 / <%=DB.dto.point%> <br>
@@ -26,8 +21,8 @@ dao.read(request.getParameter("num"));
 <%@include file = "reply.jsp" %>
 <!-- ------------------------------------------ -->
 <hr>
-<br><a href="board_ALL.jsp?currentPage=<%=request.getParameter("currentPage")%>&sort=<%=request.getParameter("sort")%>&keyword=<%=request.getParameter("keyword")%>">뒤로</a>
-<br><a href="delete?num=<%=DB.dto.num%>">삭제</a>
-<br><a href="edit.jsp?num=<%=DB.dto.num%>">수정</a>
+<br><a href="/board_ALL.jsp">전체페이지</a>
+<br><a href="/board/delete?delNum=<%=DB.dto.num%>">삭제</a>
+<br><a href="/board/edit_insert?editNum=<%=DB.dto.num%>">수정</a>
 </body>
 </html>

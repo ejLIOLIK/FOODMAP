@@ -11,7 +11,7 @@
 <body>
 
 <!-- DB.dto.title, DB.dto.id, DB.dto.text, DB.dto.point, DB.dto.adress, DB.dto.tel -->
-<form action ="write" method="post">
+<form action ="/board/write" method="get">
 상호명: <input type="text" name="title"> <br>
 작성자: <input type="text" name="id"> <br>
 내용: <textarea name="text"></textarea> <br>
@@ -31,10 +31,13 @@
 	<option value="부산">부산</option>
 	<option value="울산">울산</option>
 	<option value="광주">광주</option>
+	<option value="대전">대전</option>
  </select> <br>
 연락처: <input type="text" name="tel"> <br>
 <input type="submit" value="등록">
 </form>
+
+<br><a href="/board_ALL.jsp">뒤로</a>
 
 </body>
 </html>

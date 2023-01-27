@@ -13,15 +13,14 @@
 <body>
 <% 
 
-ArrayList<DTOreply> replyList = new ArrayList<DTOreply>();
-DAOreply daoR = new DAOreply();
-replyList = daoR.list(DB.dto.num);
+ArrayList<DTOreply> listR = new ArrayList<DTOreply>();
+listR = (ArrayList<DTOreply>)request.getAttribute("listR");
 
 %>
 
 id / 평점 / 내용 / 날짜 <br>
 <%
-for(DTOreply d : replyList){
+for(DTOreply d : listR){
 if(d.Rnum.equals(request.getParameter("editReplyNum"))){
 %>
 	<form action="/board/replyEdit" method="get">

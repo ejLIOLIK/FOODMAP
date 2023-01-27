@@ -13,7 +13,6 @@
 </head>
 <body>
 <%
-DAOsearch dao = new DAOsearch();
 ArrayList<DTOres> list = new ArrayList<DTOres>();
 String sort = ""; // 정렬기준
 String keyword = ""; // 검색어
@@ -41,7 +40,7 @@ if(request.getParameter("keyword")!=null){
 }
 %>
 
-<form action = "/board_ALL.jsp?keyword=<%=keyword%>">
+<form action = "/board/list?keyword=<%=keyword%>">
 <select name="keywordRange">
     <option value="제목">제목</option>
     <option value="내용">내용</option>
@@ -53,30 +52,23 @@ if(request.getParameter("keyword")!=null){
 </form>
 <hr>
 <%if(blSearch){%>
-<a href="/board_ALL.jsp?sort=최신순&keyword=<%=keyword%>">최신순</a>
-<a href="/board_ALL.jsp?sort=오래된순&keyword=<%=keyword%>">오래된순</a>
-<a href="/board_ALL.jsp?sort=평점높은순&keyword=<%=keyword%>">평점높은순</a>
-<a href="/board_ALL.jsp?sort=평점낮은순&keyword=<%=keyword%>">평점낮은순</a>
+<a href="/board/list?sort=new&keyword=<%=keyword%>">최신순</a>
+<a href="/board/list?sort=old&keyword=<%=keyword%>">오래된순</a>
+<a href="/board/list?sort=high&keyword=<%=keyword%>">평점높은순</a>
+<a href="/board/list?sort=low&keyword=<%=keyword%>">평점낮은순</a>
 <%}
 else{%>
-<a href="/board_ALL.jsp?sort=최신순">최신순</a>
-<a href="/board_ALL.jsp?sort=오래된순">오래된순</a>
-<a href="/board_ALL.jsp?sort=평점높은순">평점높은순</a>
-<a href="/board_ALL.jsp?sort=평점낮은순">평점낮은순</a>
+<a href="/board/list?sort=new">최신순</a>
+<a href="/board/list?sort=old">오래된순</a>
+<a href="/board/list?sort=high">평점높은순</a>
+<a href="/board/list?sort=low">평점낮은순</a>
 <%}%>
 <hr>
 no./평점/ title 
 <hr>
 <%
-
-if(blSearch){
-	mountPage = dao.countPageDB(dao.countPostDB(keyword));
-	list = dao.list(sort, currentPage, keyword);
-}
-else{
-	mountPage = dao.countPageDB(dao.countPostDB());
-	list = dao.list(sort, currentPage);
-}
+mountPage = (int)request.getAttribute("mountPage");
+list = (ArrayList<DTOres>)request.getAttribute("list");
 
 for(DTOres d:list){
 	%><%=d.num%>/<%=d.point%>/ 
@@ -91,40 +83,40 @@ if(countPost<DB.PAGINGNUM){
 <!-- --페이지 부분-------------------------------- -->
 <% if(blSearch){
 if(currentPagingPage>1){%> 
-<a href="/board_ALL.jsp?currentPage=<%=currentPage%>&currentPagingPage=<%=currentPagingPage-1%>&sort=<%=sort%>&keyword=<%=keyword%>"> &lt; </a>
+<a href="/board/list?currentPage=<%=currentPage%>&currentPagingPage=<%=currentPagingPage-1%>&sort=<%=sort%>&keyword=<%=keyword%>"> &lt; </a>
 <%}
 else {%>&lt;<%}
 for(int i=(currentPagingPage-1)*DB.PAGINGBLOCK;i<currentPagingPage*DB.PAGINGBLOCK;i++){
-	%><a href="/board_ALL.jsp?currentPage=<%=i+1%>&sort=<%=sort%>&keyword=<%=keyword%>">[<%=i+1%>]</a><%
+	%><a href="/board/list?currentPage=<%=i+1%>&sort=<%=sort%>&keyword=<%=keyword%>">[<%=i+1%>]</a><%
 	if(i+1==mountPage){ //최대 페이지 도달 시 브레이크
 		break;
 	}
 }
 if(currentPagingPage<=mountPage/DB.PAGINGBLOCK){%>
-<a href="/board_ALL.jsp?currentPage=<%=currentPage%>&currentPagingPage=<%=currentPagingPage+1%>&sort=<%=sort%>&keyword=<%=keyword%>"> &gt; </a>
+<a href="/board/list?currentPage=<%=currentPage%>&currentPagingPage=<%=currentPagingPage+1%>&sort=<%=sort%>&keyword=<%=keyword%>"> &gt; </a>
 <%}
 else {%>&gt;<%}
 } // ------------------------------------------ -- 
 else{
 if(currentPagingPage>1){%> 
-<a href="/board_ALL.jsp?currentPage=<%=currentPage%>&currentPagingPage=<%=currentPagingPage-1%>&sort=<%=sort%>"> &lt; </a>
+<a href="/board/list?currentPage=<%=currentPage%>&currentPagingPage=<%=currentPagingPage-1%>&sort=<%=sort%>"> &lt; </a>
 <%}
 else {%>&lt;<%}
 for(int i=(currentPagingPage-1)*DB.PAGINGBLOCK;i<currentPagingPage*DB.PAGINGBLOCK;i++){
-	%><a href="/board_ALL.jsp?currentPage=<%=i+1%>&sort=<%=sort%>">[<%=i+1%>]</a><%
+	%><a href="/board/list?currentPage=<%=i+1%>&sort=<%=sort%>">[<%=i+1%>]</a><%
 	if(i+1==mountPage){ //최대 페이지 도달 시 브레이크
 		break;
 	}
 }
 if(currentPagingPage<(mountPage+DB.PAGINGBLOCK-1)/DB.PAGINGBLOCK){%>
-<a href="/board_ALL.jsp?currentPage=<%=currentPage%>&currentPagingPage=<%=currentPagingPage+1%>&sort=<%=sort%>"> &gt; </a>
+<a href="/board/list?currentPage=<%=currentPage%>&currentPagingPage=<%=currentPagingPage+1%>&sort=<%=sort%>"> &gt; </a>
 <%}
 else {%>&gt;<%}
 }%>
 <!-- ------------------------------------------ -->
 
 <br>
-<a href="write.jsp">글쓰기</a>
+<a href="/write.jsp">글쓰기</a>
 
 </body>
 </html>

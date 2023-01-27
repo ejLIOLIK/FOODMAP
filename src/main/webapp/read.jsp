@@ -21,7 +21,7 @@
 <%@include file = "reply.jsp" %>
 <!-- ------------------------------------------ -->
 <hr>
-<br><a href="/board_ALL.jsp">전체페이지</a>
+<br><a href="/board/list">전체페이지</a>
 <br><a href="/board/delete?delNum=<%=DB.dto.num%>">삭제</a>
 <br><a href="/board/edit_insert?editNum=<%=DB.dto.num%>">수정</a>
 </body>

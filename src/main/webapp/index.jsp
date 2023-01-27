@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<a href="/board_ALL.jsp">전체글보기</a>
+<a href="/board/list">자유게시판</a>
 
 <br><br><br>developed by ejLIOLIK
 </body>

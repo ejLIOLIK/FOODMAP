@@ -9,11 +9,18 @@ import DTO.DTOres;
 public class DAOcrud extends DAO {
 	
 	//리스트
-	public ArrayList<DTOres> list(String sort, int currentPage) {
+	public ArrayList<DTOres> list(String sort, String currentPage) {
 		sort = sortSwitch(sort); // 정렬기준을 SQL 쿼리문에 맞게 변환
+
+		int currentPageN;
+		if(currentPage==null){ // 현재페이지
+			currentPageN = 1; }// 넘어온 값 없으면 첫 페이지로
+		else{
+			currentPageN = Integer.parseInt(currentPage); }
+		
 		ArrayList<DTOres> list = new ArrayList<DTOres>();		
 		openDB();
-		String query = String.format("select *from %s order by %s limit %s, %s", DB.SERVER_BOARD, sort, (currentPage-1)*DB.PAGINGNUM, DB.PAGINGNUM);
+		String query = String.format("select *from %s order by %s limit %s, %s", DB.SERVER_BOARD, sort, (currentPageN-1)*DB.PAGINGNUM, DB.PAGINGNUM);
 		try {
 			rs = st.executeQuery(query);
 			while(rs.next()) { 
@@ -37,11 +44,14 @@ public class DAOcrud extends DAO {
 	}
 	
 	public String sortSwitch(String sort) {
+		
+		if(sort==null) {return "fm_num desc";}
+		
 		switch(sort) {
-		case "최신순" : return "fm_num desc";
-		case "오래된순" : return "fm_num ";
-		case "평점높은순" : return "fm_point desc";
-		case "평점낮은순" : return "fm_point ";
+		case "new" : return "fm_num desc";
+		case "old" : return "fm_num ";
+		case "high" : return "fm_point desc";
+		case "low" : return "fm_point ";
 		default:
 		}
 		return "fm_num desc"; // 기본 > 최신순
@@ -76,7 +86,7 @@ public class DAOcrud extends DAO {
 		String query = String.format("insert into %s (fm_title,fm_id,fm_text,fm_adress,fm_tel) value ('%s', '%s', '%s', '%s', '%s')",
 				DB.SERVER_BOARD, DB.dto.title, DB.dto.id, DB.dto.text, DB.dto.adress, DB.dto.tel);
 		try {
-			//System.out.println(query);
+			System.out.println(query);
 			st.executeUpdate(query);
 		} catch (Exception e) {
 			e.printStackTrace();

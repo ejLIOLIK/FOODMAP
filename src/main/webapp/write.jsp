@@ -37,7 +37,7 @@
 <input type="submit" value="등록">
 </form>
 
-<br><a href="/board_ALL.jsp">뒤로</a>
+<br><a href="/board/list">뒤로</a>
 
 </body>
 </html>

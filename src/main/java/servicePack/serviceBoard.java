@@ -25,36 +25,21 @@ public class serviceBoard {
 		dao.write();
 	}
 	
-	public ArrayList<DTOreply> read(String readNum) {
+	public ArrayList<DTOreply> read(String readNum, String currentPageR) {
 		dao.read(readNum);
 		listR = new ArrayList<>();
-		listR = daoR.list(readNum);
+		listR = daoR.listR(readNum, currentPageR); //테스트용 임시값
 		
 		return listR;
+	}
+	
+	public int countPageR(String readNum) {
+		return daoR.countPageDB(daoR.countReplyDB(readNum));
 	}
 	
 	public void edit(String editNum) {
 		dao.edit(editNum);
 	}
-	
-//	public ArrayList<DTOres> list(String keyword, String sort, String currentPage){
-//		list = new ArrayList<>();
-//		if(keyword==null){ // ============================== 검색X
-//			list = dao.list(sort, currentPage);}
-//		else {	// ========================================= 검색O
-//			list = dao.list(sort, currentPage, keyword);}
-//		
-//		return list;
-//	}
-//	
-//	public int mountPage(String keyword) {
-//		int mountPage;
-//		if(keyword==null){ // ============================== 검색X
-//			mountPage = dao.countPageDB(dao.countPostDB());	}
-//		else {	// ========================================= 검색O
-//			mountPage = dao.countPageDB(dao.countPostDB(keyword));}
-//		return mountPage;
-//	}
 	
 	public void deleteReply(String delNum, String postNum) {
 		daoR.delete(delNum);

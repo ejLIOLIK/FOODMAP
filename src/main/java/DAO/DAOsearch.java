@@ -8,7 +8,7 @@ import DTO.DTOres;
 public class DAOsearch extends DAOcrud {
 	
 	//서치 리스트
-	public ArrayList<DTOres> list(String sort, String currentPage, String keyword) {
+	public ArrayList<DTOres> list(String sort, String currentPage, String keyword, String keywordRange) {
 		sort = sortSwitch(sort); // 정렬기준을 SQL 쿼리문에 맞게 변환
 		ArrayList<DTOres> list = new ArrayList<DTOres>();
 		
@@ -19,8 +19,8 @@ public class DAOsearch extends DAOcrud {
 			currentPageN = Integer.parseInt(currentPage); }
 		
 		openDB();
-		String query = String.format("select *from %s where fm_title like '%%%s%%' order by %s limit %s, %s"
-				, DB.SERVER_BOARD, keyword, sort,
+		String query = String.format("select *from %s where %s order by %s limit %s, %s"
+				, DB.SERVER_BOARD, switchsearchRange(keyword, keywordRange), sort,
 				(currentPageN - 1) * DB.PAGINGNUM, DB.PAGINGNUM);
 		try {
 			rs = st.executeQuery(query);
@@ -34,14 +34,17 @@ public class DAOsearch extends DAOcrud {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		System.out.println(query);
+		
 		closeDB();
 		return list;
 	}
 	
 	//전체 포스트 수
-	public String countPostDB(String keyword) {
+	public String countPostDB(String keyword, String keywordRange) {
 		openDB();
-		String query = String.format("select count(*) from %s where fm_title like '%%%s%%' ", DB.SERVER_BOARD, keyword);
+		String query = String.format("select count(*) from %s where %s ", DB.SERVER_BOARD, switchsearchRange(keyword, keywordRange));
 		String mountPost = "";
 		try {
 			rs = st.executeQuery(query);
@@ -54,15 +57,20 @@ public class DAOsearch extends DAOcrud {
 		return mountPost;
 	}
 	
-	public String switchsearchRange(String searchRange) {
+	public String switchsearchRange(String keyword, String keywordRange) {
 		
 		String tmp = "fm_title"; //default값
 		
-		switch(searchRange) {
-		case "제목":
-			tmp = "fm_title";
-		case "내용" :
-			tmp = "fm_text";
+		switch(keywordRange) {
+		case "title":
+			tmp = String.format("fm_title like '%%%s%%' ", keyword);
+			break;
+		case "content" :
+			tmp = String.format("fm_text like '%%%s%%' ", keyword);
+			break;
+		case "titlecontent" :
+			tmp =  String.format("fm_title like '%%%s%%' OR fm_text like '%%%s%%' ", keyword, keyword);
+			break;
 		//case "리플" :
 			default:
 		}

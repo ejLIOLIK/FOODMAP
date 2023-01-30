@@ -15,8 +15,8 @@ public class DB {
 	public static int PAGINGBLOCK = 10;
 
 	public static String SERVER_REPLY = "REPLY_FOODMAP";
-	public static int PAGINGREPLY = 10;
-	public static int PAGINGREPLYBLOCK = 5;
+	public static int PAGINGREPLY = 5;		//테스트용 임시값
+	public static int PAGINGREPLYBLOCK = 3; //테스트용 임시값
 	
 	public static DTOres dto;
 	public static DTOreply dtoR;

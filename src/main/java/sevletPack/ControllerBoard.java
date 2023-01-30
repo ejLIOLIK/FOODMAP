@@ -44,12 +44,13 @@ public class ControllerBoard extends HttpServlet {
 				service.write();
 				break;
 			case "/read":
-				nextPage = "/read.jsp";
-				request.setAttribute("listR", service.read(request.getParameter("num")));
+				nextPage = "/read.jsp?currentPageR="+request.getParameter("currentPageR")+"&currentPageBR="+request.getParameter("currentPageBR");
+				request.setAttribute("listR", service.read(request.getParameter("num"), request.getParameter("currentPageR")));
+				request.setAttribute("totalPageR", service.countPageR(request.getParameter("num")));
 				break;
 			case "/edit_insert":
 				nextPage = "/edit.jsp";
-				service.read(request.getParameter("editNum"));
+				service.read(request.getParameter("editNum"), request.getParameter("currentPageR"));
 				break;
 			case "/edit_proc":
 				nextPage = "/board/list";
@@ -64,9 +65,8 @@ public class ControllerBoard extends HttpServlet {
 				boardProc blp = new boardProc(request.getParameter("currentPage"), 
 						request.getParameter("currentPagingPage"),
 						request.getParameter("sort"),
-						request.getParameter("keyword"));
-//				request.setAttribute("list", service.list(request.getParameter("keyword"), request.getParameter("sort"), request.getParameter("currentPage")));
-//				request.setAttribute("mountPage", service.mountPage(request.getParameter("keyword")));
+						request.getParameter("keyword"),
+						request.getParameter("keywordRange"));
 				request.setAttribute("blp", blp);
 				break;
 			case "/replyDelete":

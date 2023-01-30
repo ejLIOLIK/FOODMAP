@@ -9,11 +9,17 @@ import DTO.DTOreply;
 public class DAOreply extends DAOcrud {
 
 	//리스트
-	public ArrayList<DTOreply> list(String postNum) {
+	public ArrayList<DTOreply> listR(String postNum, String currentPageR) {
+		
+		int currentPageRN;
+		if(currentPageR==null || currentPageR.equals("null")) {
+			currentPageRN = 1; }
+		else {
+			currentPageRN = Integer.parseInt(currentPageR);	}
 
 		ArrayList<DTOreply> list = new ArrayList<DTOreply>();
 		openDB();
-		String query = String.format("select * from %s where fm_Pnum = %s order by fm_Rnum desc", DB.SERVER_REPLY, postNum);
+		String query = String.format("select * from %s where fm_Pnum = %s order by fm_Rnum desc limit %s, %s", DB.SERVER_REPLY, postNum, (currentPageRN-1)*DB.PAGINGREPLY ,DB.PAGINGREPLY);
 		try {
 			rs = st.executeQuery(query);
 			while(rs.next()) {
@@ -26,7 +32,7 @@ public class DAOreply extends DAOcrud {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		//System.out.println(query);
+		System.out.println(query);
 		closeDB();
 		
 		return list;
@@ -93,6 +99,23 @@ public class DAOreply extends DAOcrud {
 		else {
 			return Float.valueOf(mountReply);
 		}
+	}
+	
+	//리플 페이지 수
+	public int countPageDB(double countReply) {
+
+		int mountPost = (int)countReply;
+		int mountPage;
+		
+		if(mountPost==0) { return 1; }
+		else if(mountPost%DB.PAGINGREPLY==0) {
+			mountPage = mountPost/DB.PAGINGREPLY;
+		}
+		else {
+			mountPage = mountPost/DB.PAGINGREPLY + 1;
+		}
+		
+		return mountPage;
 	}
 	
 	//특정 포스트 총 평점

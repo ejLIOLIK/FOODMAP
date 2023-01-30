@@ -9,6 +9,7 @@ import DTO.DTOres;
 public class boardProc { 
 	
 	public String keyword;
+	public String keywordRange;
 	public String sort;
 	int curPagingPage;
 	int curPage;
@@ -16,13 +17,14 @@ public class boardProc {
 	ArrayList<DTOres> list;
 	DAOsearch dao;
 	
-	public boardProc(String currentPage, String currentPagingPage, String sort, String keyword) {
+	public boardProc(String currentPage, String currentPagingPage, String sort, String keyword, String keywordRange) {
 	
 		this.keyword = keyword;
 		this.sort = sort;
+		this.keywordRange = keywordRange;
 		dao = new DAOsearch();
 		
-		totalPage = mountPage(keyword);
+		totalPage = mountPage(keyword, keywordRange);
 		
 		if(currentPage==null){ // 현재페이지
 			curPage = 1; }// 넘어온 값 없으면 첫 페이지로
@@ -35,30 +37,30 @@ public class boardProc {
 			curPagingPage = Integer.parseInt(currentPagingPage); }
 		
 		list = new ArrayList<>();
-		list = list(keyword, sort, currentPage);
+		list = list(keyword, sort, currentPage, keywordRange);
 	}
 	
-	public ArrayList<DTOres> list(String keyword, String sort, String currentPage){
+	public ArrayList<DTOres> list(String keyword, String sort, String currentPage, String keywordRange){
 		list = new ArrayList<>();
-		if(keyword==null){ // ============================== 검색X
+		if(blSearchCheck()){ // ============================== 검색O
+			list = dao.list(sort, currentPage, keyword, keywordRange);}
+		else {	// ========================================= 검색X
 			list = dao.list(sort, currentPage);}
-		else {	// ========================================= 검색O
-			list = dao.list(sort, currentPage, keyword);}
 		
 		return list;
 	}
 	
-	public int mountPage(String keyword) {
+	public int mountPage(String keyword, String keywordRange) {
 		int mountPage;
-		if(keyword==null){ // ============================== 검색X
+		if(blSearchCheck()){ // ============================== 검색O
+			mountPage = dao.countPageDB(dao.countPostDB(keyword, keywordRange));}
+		else {	// ========================================= 검색X
 			mountPage = dao.countPageDB(dao.countPostDB());	}
-		else {	// ========================================= 검색O
-			mountPage = dao.countPageDB(dao.countPostDB(keyword));}
 		return mountPage;
 	}
 	
 	public boolean blSearchCheck() {
-		if(keyword==null) {return false;}
+		if(keyword==null  || keyword.equals("null")) {return false;} 
 		else {return true;}
 	}
 	
@@ -85,22 +87,22 @@ public class boardProc {
 		String html = "";
 		
 		if(curPagingPage>1){
-			html+=String.format("<a href='/board/list?currentPage=%d&currentPagingPage=%d&sort=%s&keyword=%s'> &lt; </a>", 
-					curPage, curPagingPage-1, sort, keyword);
+			html+=String.format("<a href='/board/list?currentPage=%d&currentPagingPage=%d&sort=%s&keyword=%s&keywordRange=%s'> &lt; </a>", 
+					curPage, curPagingPage-1, sort, keyword, keywordRange);
 		}
 		else {
 			html+="&lt";
 		}
 		for(int i=(curPagingPage-1)*DB.PAGINGBLOCK;i<curPagingPage*DB.PAGINGBLOCK;i++){
-			html+=String.format("<a href='/board/list?currentPage=%d&sort=%s&blp.keyword=%s'>[%d]</a>",
-					i+1, sort, keyword, i+1);
+			html+=String.format("<a href='/board/list?currentPage=%d&sort=%s&keyword=%s&keywordRange=%s'>[%d]</a>",
+					i+1, sort, keyword, keywordRange, i+1);
 			if(i+1==totalPage){ //최대 페이지 도달 시 브레이크
 				break;
 			}
 		}
 		if(curPagingPage<=totalPage/DB.PAGINGBLOCK){
-			html+=String.format("<a href='board/list?currentPage=%d&currentPagingPage=%d&sort=%s&keyword=%s'> &gt; </a>", 
-					curPage, curPagingPage+1, sort, keyword);
+			html+=String.format("<a href='board/list?currentPage=%d&currentPagingPage=%d&sort=%s&keyword=%s&keywordRange=%s'> &gt; </a>", 
+					curPage, curPagingPage+1, sort, keyword, keywordRange);
 		}
 		else {
 			html+="&gt";

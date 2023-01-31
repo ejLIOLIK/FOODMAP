@@ -2,19 +2,21 @@ package servicePack;
 
 import java.util.ArrayList;
 
+import DAO.DAOmem;
 import DAO.DAOreply;
 import DAO.DAOsearch;
 import DTO.DTOreply;
-import DTO.DTOres;
 
 public class serviceBoard {
 	DAOsearch dao;
 	DAOreply daoR;
+	DAOmem daoM;
 	ArrayList<DTOreply> listR;
 	
 	public serviceBoard() {
 		dao = new DAOsearch();
 		daoR = new DAOreply();
+		daoM = new DAOmem();
 	}
 	
 	public void delete(String delNum) {
@@ -25,12 +27,8 @@ public class serviceBoard {
 		dao.write();
 	}
 	
-	public ArrayList<DTOreply> read(String readNum, String currentPageR) {
+	public void read(String readNum) {
 		dao.read(readNum);
-		listR = new ArrayList<>();
-		listR = daoR.listR(readNum, currentPageR); //테스트용 임시값
-		
-		return listR;
 	}
 	
 	public int countPageR(String readNum) {
@@ -56,6 +54,18 @@ public class serviceBoard {
 		daoR.write();
 		daoR.upReplyNum(postNum);
 		daoR.countPointUpdate(postNum);
+	}
+	
+	public int memJoin(String email, String id, String pw1, String pw2) {
+		return daoM.checkMemJoin(email, id, pw1, pw2);
+	}
+	
+	public String MemJoinMessage(int message) {
+		return daoM.MemJoinMessage(message);
+	}
+	
+	public boolean login(String id, String pw) {
+		return daoM.checkLogin(id, pw);
 	}
 
 }

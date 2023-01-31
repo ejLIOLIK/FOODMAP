@@ -153,7 +153,7 @@ public class boardProc {
 			}
 		}
 		if(curPagingPage<=totalPage/DB.PAGINGBLOCK){
-			html+=String.format("<a href='board/list?currentPage=%d&currentPagingPage=%d&sort=%s&keyword=%s&keywordRange=%s'> &gt; </a>", 
+			html+=String.format("<a href='/board/list?currentPage=%d&currentPagingPage=%d&sort=%s&keyword=%s&keywordRange=%s'> &gt; </a>", 
 					curPage, curPagingPage+1, sort, keyword, keywordRange);
 		}
 		else {

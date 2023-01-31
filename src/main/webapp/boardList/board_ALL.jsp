@@ -17,7 +17,7 @@
 boardProc blp = (boardProc)request.getAttribute("blp");
 %>
 
-<!-- 검색 / 정렬 / 메뉴바 인크루드 -->
+<!-- 검색 / 정렬 / 리스트바 인크루드 -->
 <%@include file = "boardTop.jsp" %>
 
 <!-- 리스트 페이징 -->

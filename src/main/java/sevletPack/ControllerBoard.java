@@ -6,6 +6,7 @@ import DB.DB;
 import DTO.DTOreply;
 import DTO.DTOres;
 import PROC.boardProc;
+import PROC.replyProc;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -44,13 +45,17 @@ public class ControllerBoard extends HttpServlet {
 				service.write();
 				break;
 			case "/read":
-				nextPage = "/read.jsp?currentPageR="+request.getParameter("currentPageR")+"&currentPageBR="+request.getParameter("currentPageBR");
-				request.setAttribute("listR", service.read(request.getParameter("num"), request.getParameter("currentPageR")));
-				request.setAttribute("totalPageR", service.countPageR(request.getParameter("num")));
+				nextPage = "/crud/read.jsp?currentPageR="+request.getParameter("currentPageR")+"&currentPageBR="+request.getParameter("currentPageBR");
+				service.read(request.getParameter("num"));
+				replyProc rpp = new replyProc(request.getParameter("num"), 
+						request.getParameter("currentPageR"), 
+						request.getParameter("currentPageBR"), 
+						service.countPageR(request.getParameter("num")));
+				request.setAttribute("rpp", rpp);
 				break;
 			case "/edit_insert":
-				nextPage = "/edit.jsp";
-				service.read(request.getParameter("editNum"), request.getParameter("currentPageR"));
+				nextPage = "/crud/edit.jsp";
+				service.read(request.getParameter("editNum"));
 				break;
 			case "/edit_proc":
 				nextPage = "/board/list";
@@ -61,7 +66,7 @@ public class ControllerBoard extends HttpServlet {
 				service.edit(request.getParameter("editNum"));
 				break;
 			case "/list":				
-				nextPage="/board_ALL.jsp";
+				nextPage="/boardList/board_ALL.jsp";
 				boardProc blp = new boardProc(request.getParameter("currentPage"), 
 						request.getParameter("currentPagingPage"),
 						request.getParameter("sort"),
@@ -90,7 +95,33 @@ public class ControllerBoard extends HttpServlet {
 		d.forward(request,response);
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String action = request.getPathInfo();
+		System.out.println("action:"+action); //확인용
+		
+		if(action!=null) {
+			switch(action){
+			case "/login":
+				if(service.login(request.getParameter("id"), request.getParameter("pw"))){
+					request.setAttribute("id", request.getParameter("id"));
+					nextPage = "/index.jsp";}
+				else {
+					request.setAttribute("message", "로그인 실패");
+					nextPage = "/login.jsp";}
+				break;
+			case "/memjoin":
+				int message = service.memJoin(request.getParameter("email"), request.getParameter("id"), request.getParameter("pw1"), request.getParameter("pw2"));
+				service.MemJoinMessage(message);
+				request.setAttribute("message", service.MemJoinMessage(message));
+				if(message==4) { // 가입성공
+					nextPage = "/login.jsp";}
+				else {
+					nextPage = "/memjoin.jsp";}
+				break;
+			}
+		}
+		RequestDispatcher d = request.getRequestDispatcher(nextPage);
+		d.forward(request,response);
 	}
-
 }

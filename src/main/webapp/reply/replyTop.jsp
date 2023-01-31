@@ -7,6 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<a href="/write.jsp">글쓰기</a> <a href="/board/list">전체글보기</a>
+
+id / 평점 / 내용 / 날짜 <br>
+
 </body>
 </html>

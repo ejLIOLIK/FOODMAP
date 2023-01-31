@@ -45,16 +45,16 @@ public class DAOcrud extends DAO {
 	
 	public String sortSwitch(String sort) {
 		
-		if(sort==null) {return "fm_num desc";}
+		if(sort==null) {return "fm_num desc ";}
 		
 		switch(sort) {
-		case "new" : return "fm_num desc";
+		case "new" : return "fm_num desc ";
 		case "old" : return "fm_num ";
-		case "high" : return "fm_point desc";
+		case "high" : return "fm_point desc ";
 		case "low" : return "fm_point ";
 		default:
 		}
-		return "fm_num desc"; // 기본 > 최신순
+		return "fm_num desc "; // 기본 > 최신순
 	}
 	
 	//읽기

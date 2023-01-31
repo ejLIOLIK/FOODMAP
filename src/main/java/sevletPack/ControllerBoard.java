@@ -2,10 +2,10 @@ package sevletPack;
 
 import java.io.IOException;
 
-import BOARD.boardProc;
 import DB.DB;
 import DTO.DTOreply;
 import DTO.DTOres;
+import PROC.boardProc;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

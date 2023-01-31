@@ -1,4 +1,4 @@
-<%@ page import="BOARD.boardProc" %>
+<%@ page import="PROC.boardProc" %>
 <%@ page import="DAO.DAOsearch" %>
 <%@ page import="DAO.DAOcrud" %>
 <%@ page import="DTO.DTOres" %>
@@ -14,45 +14,24 @@
 </head>
 <body>
 <%
-ArrayList<DTOres> list = new ArrayList<DTOres>();
 boardProc blp = (boardProc)request.getAttribute("blp");
 %>
 
-<form action = "/board/list?keyword=<%=blp.keyword%>">
-<select name="keywordRange">
-    <option value="title">제목</option>
-    <option value="content">내용</option>
-    <option value="titlecontent">제목+내용</option>
-    <option value="reply">리플</option>
-</select>
+<!-- 검색 / 정렬 / 메뉴바 인크루드 -->
+<%@include file = "boardTop.jsp" %>
 
-<%if(blp.blSearchCheck()){ 
-	%><input type="search" name="keyword" value="<%=blp.keyword%>" required="required"><% }
+<!-- 리스트 페이징 -->
+<%if(blp.blSearchCheck() && blp.keywordRange.equals("reply")){%>
+	<%=blp.htmlBoardListSearchReply()%><%}
 else{
-	%><input type="search" name="keyword" required="required"><% }%>
-
-<input type="submit" value="🔍">
-</form>
-<hr>
-<%if(blp.blSearchCheck()){%>
-<a href="/board/list?sort=new&keyword=<%=blp.keyword%>&keywordRange=<%=blp.keywordRange%>">최신순</a>
-<a href="/board/list?sort=old&keyword=<%=blp.keyword%>&keywordRange=<%=blp.keywordRange%>">오래된순</a>
-<a href="/board/list?sort=high&keyword=<%=blp.keyword%>&keywordRange=<%=blp.keywordRange%>">평점높은순</a>
-<a href="/board/list?sort=low&keyword=<%=blp.keyword%>&keywordRange=<%=blp.keywordRange%>">평점낮은순</a>
-<%}
-else{%>
-<a href="/board/list?sort=new">최신순</a>
-<a href="/board/list?sort=old">오래된순</a>
-<a href="/board/list?sort=high">평점높은순</a>
-<a href="/board/list?sort=low">평점낮은순</a>
+	%><%=blp.htmlBoardList()%>
 <%}%>
-<hr>
-no./평점/ title 
-<hr>
-<%=blp.htmlBoardList()%> 
+
 <%=blp.htmlBoardPage()%>
-<br>
-<a href="/write.jsp">글쓰기</a>
+	<br>
+
+<!-- 글쓰기 / 전체글보기 등  -->
+<%@include file = "boardBottom.jsp" %>
 
 </body>
 </html>

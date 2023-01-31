@@ -18,6 +18,8 @@ public class DB {
 	public static int PAGINGREPLY = 5;		//테스트용 임시값
 	public static int PAGINGREPLYBLOCK = 3; //테스트용 임시값
 	
+	public static String SERVER_JOIN = "BOARD_FOODMAP inner join REPLY_FOODMAP on BOARD_FOODMAP.fm_num = REPLY_FOODMAP.fm_Pnum";
+	
 	public static DTOres dto;
 	public static DTOreply dtoR;
 	

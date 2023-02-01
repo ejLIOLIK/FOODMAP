@@ -6,12 +6,15 @@ import DAO.DAOmem;
 import DAO.DAOreply;
 import DAO.DAOsearch;
 import DTO.DTOreply;
+import jakarta.servlet.http.HttpSession;
+
 
 public class serviceBoard {
 	DAOsearch dao;
 	DAOreply daoR;
 	DAOmem daoM;
 	ArrayList<DTOreply> listR;
+	HttpSession session;
 	
 	public serviceBoard() {
 		dao = new DAOsearch();
@@ -65,7 +68,16 @@ public class serviceBoard {
 	}
 	
 	public boolean login(String id, String pw) {
-		return daoM.checkLogin(id, pw);
+		if(daoM.checkLogin(id, pw)) {
+			session.setAttribute("id", id);
+			session.setMaxInactiveInterval(20*60);
+			return true;
+		}
+		else {return false;}
+	}
+	
+	public void logout() {
+		session.invalidate(); 
 	}
 
 }

@@ -45,7 +45,7 @@ public class ControllerBoard extends HttpServlet {
 				service.write();
 				break;
 			case "/read":
-				nextPage = "/crud/read.jsp?editReplyNum"+request.getParameter("editReplyNum")+"&currentPageR="+request.getParameter("currentPageR")+"&currentPageBR="+request.getParameter("currentPageBR");
+				nextPage = "/crud/read.jsp?editReplyNum"+request.getParameter("editReplyNum")+"&currentPageR="+request.getParameter("currentPageR")+"&currentPageBR="+request.getParameter("currentPageBR")+"&adress="+request.getParameter("adress");
 				service.read(request.getParameter("postNum"));
 				replyProc rpp = new replyProc(request.getParameter("postNum"), 
 						request.getParameter("currentPageR"), 
@@ -76,20 +76,20 @@ public class ControllerBoard extends HttpServlet {
 				request.setAttribute("blp", blp);
 				break;
 			case "/replyDelete":
-				nextPage = "/board/read?postNum="+request.getParameter("postNum");
+				nextPage = "/board/read?postNum="+request.getParameter("postNum")+"&adress="+request.getParameter("adress");
 				service.deleteReply(request.getParameter("delNum"), request.getParameter("postNum"));
 				break;
 			case "/replyEdit":
-				nextPage = "/board/read?editReplyNum=null&num="+request.getParameter("postNum");
+				nextPage = "/board/read?editReplyNum=null&num="+request.getParameter("postNum")+"&adress="+request.getParameter("adress");
 				DB.dtoR = new DTOreply(request.getParameter("point"), 
 						request.getParameter("text"));
 				service.editReply(request.getParameter("editReplyNum"), request.getParameter("postNum")); 
 				break;
 			case "/replyWrite":
 				if(request.getParameter("id").equals("null") || request.getParameter("id")==null) {
-					nextPage = "/board/rightWriteR_login?num="+request.getParameter("postNum");}
+					nextPage = "/board/rightWriteR_login?num="+request.getParameter("postNum")+"&adress="+request.getParameter("adress");}
 				else {
-					nextPage = "/board/read?postNum="+request.getParameter("postNum");
+					nextPage = "/board/read?postNum="+request.getParameter("postNum")+"&adress="+request.getParameter("adress");
 					DB.dtoR = new DTOreply(request.getParameter("postNum"), request.getParameter("id"), request.getParameter("point"), request.getParameter("text")); 
 					service.writeReply(request.getParameter("postNum"));}
 				break;
@@ -102,12 +102,16 @@ public class ControllerBoard extends HttpServlet {
 				request.setAttribute("message", "로그인 후 이용하세요.");
 				break;
 			case "/rightWriteR_login":
-				nextPage = "/board/read?postNum="+request.getParameter("postNum");
+				nextPage = "/board/read?postNum="+request.getParameter("postNum")+"&adress="+request.getParameter("adress");
 				request.setAttribute("message", "로그인 후 이용하세요.");
 				break;
 			case "/rightWriteR_id":
-				nextPage = "/board/read?postNum="+request.getParameter("postNum");
+				nextPage = "/board/read?postNum="+request.getParameter("postNum")+"&adress="+request.getParameter("adress");
 				request.setAttribute("message", "권한이 없습니다.");
+				break;
+			case "/logout":
+				nextPage = "/index.jsp";
+				service.logout();
 				break;
 			}
 		}

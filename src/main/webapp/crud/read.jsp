@@ -27,7 +27,7 @@
 <!-- ------------------------------------------ -->
 <hr>
 <br><a href="/board/list?adress=<%=request.getParameter("adress")%>">게시판</a>
-<br><a href="/board/delete?delNum=<%=DB.dto.num%>">삭제</a>
-<br><a href="/board/edit_insert?editNum=<%=DB.dto.num%>">수정</a>
+<br><a href="/board/delete?adress=<%=request.getParameter("adress")%>&delNum=<%=DB.dto.num%>">삭제</a>
+<br><a href="/board/edit_insert?adress=<%=request.getParameter("adress")%>&editNum=<%=DB.dto.num%>">수정</a>
 </body>
 </html>

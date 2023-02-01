@@ -35,6 +35,7 @@
 	<option value="대전">대전</option>
  </select> <br>
 연락처: <input type="text" name="tel"> <br>
+<input type="hidden" name="adress" value="<%=request.getParameter("adress")%>">
 <input type="submit" value="등록">
 </form>
 

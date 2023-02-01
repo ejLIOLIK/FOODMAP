@@ -18,6 +18,7 @@ ID: <%@include file = "/loginInfo.jsp" %>
 <input type="hidden" name="currentPage" value="<%=request.getParameter("currentPage")%>">
 <input type="hidden" name="sort" value="<%=request.getParameter("sort")%>">
 <%-- <input type="hidden" name="keyword" value="<%=request.getParameter("keyword")%>"> --%>
+<input type="hidden" name="adress" value=<%=request.getParameter("adress") %>>
 <input type="submit" value="등록">
 
 </form>

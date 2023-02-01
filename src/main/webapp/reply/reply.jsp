@@ -42,16 +42,16 @@ else{%>
 	<% 
 	String checkID = (String)session.getAttribute("id");
 	if(checkID==null || checkID.equals("null")){%>
-	<a href="/board/rightWriteR_login?postNum=<%=d.Pnum%>">수정</a>	 / 
-	<a href="/board/rightWriteR_login?postNum=<%=DB.dto.num%>">삭제</a>
+	<a href="/board/rightWriteR_login?adress=<%=request.getParameter("adress")%>&postNum=<%=d.Pnum%>">수정</a>	 / 
+	<a href="/board/rightWriteR_login?adress=<%=request.getParameter("adress")%>&postNum=<%=DB.dto.num%>">삭제</a>
 	<%}
 	else if(checkID.equals(d.id)){%>
-	<a href="/board/read?editReplyNum=<%=d.Rnum%>&postNum=<%=d.Pnum%>&currentPage=<%=request.getParameter("currentPage")%>&sort=<%=request.getParameter("sort")%>&keyword=<%=request.getParameter("keyword")%>">수정</a>	 / 
-	<a href="/board/replyDelete?delNum=<%=d.Rnum%>&postNum=<%=DB.dto.num%>&currentPage=<%=request.getParameter("currentPage")%>&sort=<%=request.getParameter("sort")%>&keyword=<%=request.getParameter("keyword")%>">삭제</a>
+	<a href="/board/read?adress=<%=request.getParameter("adress")%>&editReplyNum=<%=d.Rnum%>&postNum=<%=d.Pnum%>&currentPage=<%=request.getParameter("currentPage")%>&sort=<%=request.getParameter("sort")%>&keyword=<%=request.getParameter("keyword")%>">수정</a>	 / 
+	<a href="/board/replyDelete?adress=<%=request.getParameter("adress")%>&delNum=<%=d.Rnum%>&postNum=<%=DB.dto.num%>&currentPage=<%=request.getParameter("currentPage")%>&sort=<%=request.getParameter("sort")%>&keyword=<%=request.getParameter("keyword")%>">삭제</a>
 	<%}
-	else{%>
-	<a href="/board/rightWriteR_id?postNum=<%=d.Pnum%>">수정</a>	 / 
-	<a href="/board/rightWriteR_id?postNum=<%=DB.dto.num%>">삭제</a>
+	else{%> 
+	<a href="/board/rightWriteR_id?adress=<%=request.getParameter("adress")%>&postNum=<%=d.Pnum%>">수정</a>	 / 
+	<a href="/board/rightWriteR_id?adress=<%=request.getParameter("adress")%>&postNum=<%=DB.dto.num%>">삭제</a>
 	<%}%>
 	<br>
 	<%

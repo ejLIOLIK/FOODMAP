@@ -39,9 +39,20 @@ if(d.Rnum.equals(request.getParameter("editReplyNum"))){
 <%}
 else{%>
 	<%=d.id %> / <%=d.point %> / <%=d.text %> / <%=d.date %>
-	<a href="/crud/read.jsp?editReplyNum=<%=d.Rnum%>&num=<%=d.Pnum%>&currentPage=<%=request.getParameter("currentPage")%>&sort=<%=request.getParameter("sort")%>&keyword=<%=request.getParameter("keyword")%>">수정</a>
-	 / 
+	<% 
+	String checkID = (String)session.getAttribute("id");
+	if(checkID==null || checkID.equals("null")){%>
+	<a href="/board/rightWriteR_login?postNum=<%=d.Pnum%>">수정</a>	 / 
+	<a href="/board/rightWriteR_login?postNum=<%=DB.dto.num%>">삭제</a>
+	<%}
+	else if(checkID.equals(d.id)){%>
+	<a href="/board/read?editReplyNum=<%=d.Rnum%>&postNum=<%=d.Pnum%>&currentPage=<%=request.getParameter("currentPage")%>&sort=<%=request.getParameter("sort")%>&keyword=<%=request.getParameter("keyword")%>">수정</a>	 / 
 	<a href="/board/replyDelete?delNum=<%=d.Rnum%>&postNum=<%=DB.dto.num%>&currentPage=<%=request.getParameter("currentPage")%>&sort=<%=request.getParameter("sort")%>&keyword=<%=request.getParameter("keyword")%>">삭제</a>
+	<%}
+	else{%>
+	<a href="/board/rightWriteR_id?postNum=<%=d.Pnum%>">수정</a>	 / 
+	<a href="/board/rightWriteR_id?postNum=<%=DB.dto.num%>">삭제</a>
+	<%}%>
 	<br>
 	<%
 } countReply++; }

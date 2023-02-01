@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<%@include file="/homeButton.jsp" %>
 <form action ="/board/edit_proc" method="get">
 번호 / <%=DB.dto.num%> <input type="hidden" name="editNum" value="<%=DB.dto.num%>">
 상호명: <input type="text" name="title" value="<%=DB.dto.title%>"> <br>
@@ -28,6 +28,7 @@
 	<option value="충남">충남</option>
 	<option value="경북">경북</option>
 	<option value="경남">경남</option>
+	<option value="경남">대구</option>
 	<option value="부산">부산</option>
 	<option value="울산">울산</option>
 	<option value="광주">광주</option>

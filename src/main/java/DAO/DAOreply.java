@@ -159,4 +159,9 @@ public class DAOreply extends DAOcrud {
 		closeDB();
 	}
 	
+	public boolean checkRight(String ReplyID, String loginID) {
+		
+		return false;
+	}
+	
 }

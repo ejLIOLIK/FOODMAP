@@ -12,8 +12,9 @@ public class DTOres {
 	public String point;
 	public String adress;
 	public String tel;
+	public String recmd;	
 	
-	public DTOres(String num, String title, String id, String time, String hit, String text, String reply, String point, String adress, String tel) {
+	public DTOres(String num, String title, String id, String time, String hit, String text, String reply, String point, String adress, String tel, String recmd) {
 		this.num	=num	;
 		this.title	=title	;
 		this.id		=id		;
@@ -24,6 +25,7 @@ public class DTOres {
 		this.point	=point	;
 		this.adress	=adress	;
 		this.tel	=tel	;
+		this.recmd = recmd	;
 		
 		if(this.point.equals("-1.0")) {
 			this.point = "미평가";

@@ -13,12 +13,16 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+<%@include file="/homeButton.jsp" %>
+<%@include file="/messageAlert.jsp" %>
+
 <%
 boardProc blp = (boardProc)request.getAttribute("blp");
 %>
 
 <!-- 검색 / 정렬 / 리스트바 인크루드 -->
-<%@include file = "boardTop.jsp" %>
+<%@include file = "/boardList/boardTop.jsp" %>
 
 <!-- 리스트 페이징 -->
 <%if(blp.blSearchCheck() && blp.keywordRange.equals("reply")){%>
@@ -31,7 +35,7 @@ else{
 	<br>
 
 <!-- 글쓰기 / 전체글보기 등  -->
-<%@include file = "boardBottom.jsp" %>
+<%@include file = "/boardList/boardBottom.jsp" %>
 
 </body>
 </html>

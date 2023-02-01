@@ -7,6 +7,16 @@
 <title>Insert title here</title>
 </head>
 <body>
-<a href="/crud/write.jsp">글쓰기</a> <a href="/board/list">전체글보기</a>
+<%
+String checkID = (String)session.getAttribute("id");
+if(checkID==null || checkID.equals("null")){
+%><a href="/board/rightWrite_login?adress=<%=request.getParameter("adress")%>">글쓰기</a> 	
+<%}
+else{	
+	%><a href="/crud/write.jsp?adress=<%=request.getParameter("adress")%>">글쓰기</a> 
+<%}%>
+<a href="/board/list?adress=<%=request.getParameter("adress")%>">게시판</a> <br>
+ID : <%@include file = "/loginInfo.jsp" %>
+
 </body>
 </html>

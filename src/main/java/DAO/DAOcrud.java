@@ -8,11 +8,12 @@ import DTO.DTOres;
 
 public class DAOcrud extends DAO {
 	
-	//리스트
-	public ArrayList<DTOres> list(String sort, String currentPage) {
+	//전체 리스트
+	public ArrayList<DTOres> list(String adress, String sort, String currentPage) {
 		sort = sortSwitch(sort); // 정렬기준을 SQL 쿼리문에 맞게 변환
 
 		int currentPageN;
+		String query="";
 		if(currentPage==null){ // 현재페이지
 			currentPageN = 1; }// 넘어온 값 없으면 첫 페이지로
 		else{
@@ -20,7 +21,14 @@ public class DAOcrud extends DAO {
 		
 		ArrayList<DTOres> list = new ArrayList<DTOres>();		
 		openDB();
-		String query = String.format("select *from %s order by %s limit %s, %s", DB.SERVER_BOARD, sort, (currentPageN-1)*DB.PAGINGNUM, DB.PAGINGNUM);
+		
+		if(adress==null || adress.equals("null")) {
+			query = String.format("select *from %s order by %s limit %s, %s", DB.SERVER_BOARD, sort, (currentPageN-1)*DB.PAGINGNUM, DB.PAGINGNUM);			
+		}
+		else {
+			query = String.format("select *from %s where fm_adress = '%s' order by %s limit %s, %s", 
+					DB.SERVER_BOARD, adress, sort, (currentPageN-1)*DB.PAGINGNUM, DB.PAGINGNUM);
+		}
 		try {
 			rs = st.executeQuery(query);
 			while(rs.next()) { 
@@ -33,7 +41,8 @@ public class DAOcrud extends DAO {
 						,rs.getString("fm_reply")
 						,rs.getString("fm_point")
 						,rs.getString("fm_adress")
-						,rs.getString("fm_tel"));
+						,rs.getString("fm_tel")
+						,rs.getString("fm_recmd"));
 				list.add(DB.dto);
 			}
 		} catch (Exception e) {
@@ -73,7 +82,8 @@ public class DAOcrud extends DAO {
 					,rs.getString("fm_reply")
 					,rs.getString("fm_point")
 					,rs.getString("fm_adress")
-					,rs.getString("fm_tel"));
+					,rs.getString("fm_tel")
+					,rs.getString("fm_recmd"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -120,9 +130,16 @@ public class DAOcrud extends DAO {
 	}
 	
 	//전체 포스트 수
-	public String countPostDB() {
+	public String countPostDB(String adress) {
 		openDB();
-		String query = String.format("select count(*) from %s", DB.SERVER_BOARD);
+		
+		String query;
+		
+		if(adress==null || adress.equals("null")) {
+			query = String.format("select count(*) from %s", DB.SERVER_BOARD);}
+		else {
+			query = String.format("select count(*) from %s where fm_adress='%s'", DB.SERVER_BOARD, adress);}
+		
 		String mountPost = "";
 		try {
 			rs = st.executeQuery(query);
@@ -175,4 +192,5 @@ public class DAOcrud extends DAO {
 		}
 		closeDB();
 	}
+	
 }

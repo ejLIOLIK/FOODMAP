@@ -9,11 +9,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<%@include file="/homeButton.jsp" %>
 <!-- DB.dto.title, DB.dto.id, DB.dto.text, DB.dto.point, DB.dto.adress, DB.dto.tel -->
 <form action ="/board/write" method="get">
 상호명: <input type="text" name="title"> <br>
-작성자: <input type="text" name="id"> <br>
+작성자: <%=session.getAttribute("id")%> <input type="hidden" name="id" value="<%=session.getAttribute("id") %>"> <br>
 내용: <textarea name="text"></textarea> <br>
 <!-- 주소: <input type="text" name="adress"> <br> -->
 주소: <select name="adress">
@@ -28,6 +28,7 @@
 	<option value="충남">충남</option>
 	<option value="경북">경북</option>
 	<option value="경남">경남</option>
+	<option value="경남">대구</option>
 	<option value="부산">부산</option>
 	<option value="울산">울산</option>
 	<option value="광주">광주</option>
@@ -37,7 +38,7 @@
 <input type="submit" value="등록">
 </form>
 
-<br><a href="/board/list">뒤로</a>
+<br><a href="/board/list?adress=<%=request.getParameter("adress")%>">뒤로</a>
 
 </body>
 </html>

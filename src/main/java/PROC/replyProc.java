@@ -45,7 +45,7 @@ public class replyProc { // 리플 관련 이동예정
 		
 		// 페이지블록
 		if(currentPageBRN>1){
-			html += String.format("<a href='/board/read?num=%s&currentPageR=%d&currentPageBR=%d'>&lt</a>",
+			html += String.format("<a href='/board/read?postNum=%s&currentPageR=%d&currentPageBR=%d'>&lt</a>",
 					postNum, currentPageRN, currentPageBRN-1);
 		}
 		else{
@@ -54,14 +54,14 @@ public class replyProc { // 리플 관련 이동예정
 		for(int i=0;i<totalPageR && i<DB.PAGINGREPLYBLOCK;i++){
 			int pageBN = (currentPageBRN-1)*DB.PAGINGREPLYBLOCK+i+1;
 			if(pageBN>totalPageR){break;}
-			html += String.format("<a href='/board/read?num=%s&currentPageR=%d&currentPageBR=%d'>[%d]</a>", 
+			html += String.format("<a href='/board/read?postNum=%s&currentPageR=%d&currentPageBR=%d'>[%d]</a>", 
 					postNum, pageBN, currentPageBRN, pageBN);
 		}
 		if(currentPageBRN>=(totalPageR+DB.PAGINGREPLYBLOCK-1)/DB.PAGINGREPLYBLOCK){
 			html += "&gt";
 		}
 		else{
-			html += String.format("<a href='/board/read?num=%s&currentPageR=%d&currentPageBR=%d'>&gt</a>", 
+			html += String.format("<a href='/board/read?postNum=%s&currentPageR=%d&currentPageBR=%d'>&gt</a>", 
 					postNum, currentPageRN,currentPageBRN+1);
 		}
 		html += "<hr>";

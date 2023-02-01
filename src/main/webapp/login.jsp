@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<%@include file="/homeButton.jsp" %>
 <%@include file="messageAlert.jsp" %>
 
 <form action="/board/login" method="post">

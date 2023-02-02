@@ -19,8 +19,12 @@
 내용 / <%=DB.dto.text%> <br>
 평점 / <%=DB.dto.point%> <br>
 주소 / <%=DB.dto.adress%> <br>
-전화번호 / <%=DB.dto.tel%> <br><%
-%>
+전화번호 / <%=DB.dto.tel%> <br>
+<hr>
+
+<!-- 추천 완료 / 이미 추천한 경우 팝업 메시지 / 추천 취소? -->
+추천하시겠습니까? <button type="button" onclick='/board/recommand?adress= &postNum= &recmdNum'>👍</button> 
+
 <hr>
 <!-- ---리플------------------------------------ -->
 <%@include file = "/reply/reply.jsp" %>

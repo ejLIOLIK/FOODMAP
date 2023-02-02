@@ -127,7 +127,7 @@ public class ControllerBoard extends HttpServlet {
 		if(action!=null) {
 			switch(action){
 			case "/login":
-				if(service.login(request.getParameter("id"), request.getParameter("pw"))){
+				if(service.login(request, request.getParameter("id"), request.getParameter("pw"))){
 					request.setAttribute("id", request.getParameter("id"));
 					nextPage = "/index.jsp";}
 				else {

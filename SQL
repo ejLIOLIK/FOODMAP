@@ -5,7 +5,7 @@ MEM_FOODMAP (
   pw char(30) DEFAULT NULL,
   email text,
   joinday date DEFAULT (curdate())
-);
+)
 
 REPLY_FOODMAP ( #게시글번호 #리플번호 #작성자ID #별점 #내용 #날짜
 	fm_Pnum int NOT NULL,
@@ -14,7 +14,7 @@ REPLY_FOODMAP ( #게시글번호 #리플번호 #작성자ID #별점 #내용 #날
     fm_point double NOT NULL default -1,
     fm_text char(100) NOT NULL DEFAULT '', 
     fm_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
+)
 
 board_foodmap (
   fm_num int NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -28,4 +28,9 @@ board_foodmap (
   fm_adress text,
   fm_tel text,
   fm_recmd int DEFAULT 0
-);
+)
+
+RECMD_FOODMAP (
+  id char(30),
+  postNum int
+)

@@ -21,6 +21,7 @@ public class DB {
 	public static String SERVER_JOIN = "BOARD_FOODMAP inner join REPLY_FOODMAP on BOARD_FOODMAP.fm_num = REPLY_FOODMAP.fm_Pnum";
 	
 	public static String SERVER_MEMBER = "MEM_FOODMAP"; //회원
+	public static String SERVER_RECMD = "RECMD_FOODMAP"; //추천
 	
 	public static DTOres dto;
 	public static DTOreply dtoR;

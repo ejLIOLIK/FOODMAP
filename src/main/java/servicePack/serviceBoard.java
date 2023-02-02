@@ -6,6 +6,7 @@ import DAO.DAOmem;
 import DAO.DAOreply;
 import DAO.DAOsearch;
 import DTO.DTOreply;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 
@@ -32,6 +33,7 @@ public class serviceBoard {
 	
 	public void read(String readNum) {
 		dao.read(readNum);
+		dao.upHit(readNum);
 	}
 	
 	public int countPageR(String readNum) {
@@ -40,23 +42,27 @@ public class serviceBoard {
 	
 	public void edit(String editNum) {
 		dao.edit(editNum);
+		dao.downHit(editNum);
 	}
 	
 	public void deleteReply(String delNum, String postNum) {
 		daoR.delete(delNum);
 		daoR.downReplyNum(postNum);
 		daoR.countPointUpdate(postNum);
+		daoR.downHit(postNum);
 	}
 	
 	public void editReply(String editNum, String postNum) {
 		daoR.edit(editNum);
 		daoR.countPointUpdate(postNum);
+		daoR.downHit(postNum);
 	}
 	
 	public void writeReply(String postNum) {
 		daoR.write();
 		daoR.upReplyNum(postNum);
 		daoR.countPointUpdate(postNum);
+		daoR.downHit(postNum);
 	}
 	
 	public int memJoin(String email, String id, String pw1, String pw2) {
@@ -67,8 +73,9 @@ public class serviceBoard {
 		return daoM.MemJoinMessage(message);
 	}
 	
-	public boolean login(String id, String pw) {
+	public boolean login(HttpServletRequest request, String id, String pw) {
 		if(daoM.checkLogin(id, pw)) {
+			session = request.getSession();
 			session.setAttribute("id", id);
 			session.setMaxInactiveInterval(20*60);
 			return true;
@@ -79,5 +86,4 @@ public class serviceBoard {
 	public void logout() {
 		session.invalidate(); 
 	}
-
 }

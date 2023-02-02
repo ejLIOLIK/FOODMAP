@@ -193,4 +193,28 @@ public class DAOcrud extends DAO {
 		closeDB();
 	}
 	
+	//조회수 +1
+	public void upHit(String postNum) {
+		openDB();
+		String query = String.format("update %s set fm_hit = fm_hit+1 where fm_num = %s", DB.SERVER_BOARD, postNum);
+		try {
+			st.executeUpdate(query);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		closeDB();
+	}
+
+	//조회수 -1
+	public void downHit(String postNum) {
+		openDB();
+		String query = String.format("update %s set fm_hit = fm_hit-1 where fm_num = %s", DB.SERVER_BOARD, postNum);
+		try {
+			st.executeUpdate(query);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		closeDB();
+	}
+	
 }

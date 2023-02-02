@@ -9,14 +9,7 @@
 <body>
 HOME
 <hr>
-<% 
-String id = (String)request.getAttribute("id");
-if(id==null || id.equals("null")){
-	%>id : 손님<%
-}
-else{%>
-id : <%=id %><% 
-}%>
+ID: <%@include file = "loginInfo.jsp"%>
 <hr>
 <a href="/board/list">전체게시판</a> <br>
 <hr>

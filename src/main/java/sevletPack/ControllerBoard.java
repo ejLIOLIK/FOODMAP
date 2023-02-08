@@ -40,16 +40,6 @@ public class ControllerBoard extends HttpServlet {
 				nextPage = "/board/list?adress="+request.getParameter("adress");
 				service.delete(request.getParameter("delNum"));
 				break;
-//			case "/write":
-//				nextPage = "/board/list?adress="+request.getParameter("adress");
-//				DB.dto = new DTOres(request.getParameter("title"), 
-//						request.getParameter("id"), 
-//						request.getParameter("text"), 
-//						request.getParameter("adress"), 
-//						request.getParameter("tel"),
-//						request.getParameter("fileName"));
-//				service.write();
-//				break;
 			case "/read":
 				nextPage = "/crud/read.jsp?editReplyNum"+request.getParameter("editReplyNum")+"&currentPageR="+request.getParameter("currentPageR")+"&currentPageBR="+request.getParameter("currentPageBR")+"&adress="+request.getParameter("adress");
 				service.read(request.getParameter("postNum"));

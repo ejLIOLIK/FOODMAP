@@ -16,6 +16,17 @@
 제목 / <%=DB.dto.title%> [<%=DB.dto.reply%>] <br>
 조회수 / <%=DB.dto.hit %> <br>
 추천 / <%=DB.dto.recmd %> <br>
+<!-- 이미지 출력 -->
+<!-- "D:\html_css_js\03_jsp_workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp1\wtpwebapps\FOODMAP\upload" -->
+<% 
+if(DB.dto.img==null || DB.dto.img.equals("null")){
+	%><img src="\upload\no.jpg" alt="img" width="200"><%
+}
+else{
+	%><img src="\upload\<%=DB.dto.img%>" alt="img" width="200"><%
+}
+%> <br>
+<!-- - -->
 내용 / <%=DB.dto.text%> <br>
 평점 / <%=DB.dto.point%> <br>
 주소 / <%=DB.dto.adress%> <br>

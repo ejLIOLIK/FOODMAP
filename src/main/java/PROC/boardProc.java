@@ -120,9 +120,19 @@ public class boardProc {
 		
 		int countPost = 0;
 		for(DTOres d:list){
-			html += String.format("%s/%s/%s/<a href='/board/read?adress=%s&postNum=%s&currentPage=%d&sort=%s&keyword=%s&keywordRange=%s'>%s</a> [%s] %s %s<br>", 
-					d.num, d.adress, d.point, d.adress, d.num, curPage, sort, keyword, keywordRange, d.title, d.reply, d.hit, d.recmd);
+//			html += String.format("%s/%s/%s/<a href='/board/read?adress=%s&postNum=%s&currentPage=%d&sort=%s&keyword=%s&keywordRange=%s'> %s</a> [%s] %s %s<br>", 
+//					d.num, d.adress, d.point, d.adress, d.num, curPage, sort, keyword, keywordRange, d.title, d.reply, d.hit, d.recmd);
+			html += String.format("%s/%s/%s/", d.num, d.adress, d.point);
+
+			if(d.img==null || d.img.equals("null")){ // 썸네일
+				html += " <img src='\\upload\\no.jpg' alt='img' width='30'> ";
+			}
+			else{
+				html += " <img src='\\upload\\" + d.img + "' alt='img' width='30'> ";
+			}
+			
 			countPost++;
+			html += String.format("<a href='/board/read?adress=%s&postNum=%s&currentPage=%d&sort=%s&keyword=%s&keywordRange=%s'>%s</a> [%s] %s %s<br>", d.adress, d.num, curPage, sort, keyword, keywordRange, d.title, d.reply, d.hit, d.recmd);
 		}
 		if(countPost<DB.PAGINGNUM){
 			for(int i=0;i<DB.PAGINGNUM-countPost;i++){

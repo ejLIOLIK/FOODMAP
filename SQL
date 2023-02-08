@@ -27,7 +27,8 @@ board_foodmap (
   fm_point int DEFAULT NULL,
   fm_adress text,
   fm_tel text,
-  fm_recmd int DEFAULT 0
+  fm_recmd int DEFAULT 0,
+  fm_img text
 )
 
 RECMD_FOODMAP (

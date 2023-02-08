@@ -24,6 +24,5 @@ public class DB {
 	public static String SERVER_RECMD = "RECMD_FOODMAP"; //추천
 	
 	public static DTOres dto;
-	public static DTOreply dtoR;
-	
+	public static DTOreply dtoR;	
 }

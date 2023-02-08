@@ -2,12 +2,13 @@ package servicePack;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import DAO.DAOmem;
 import DAO.DAOreply;
 import DAO.DAOsearch;
 import DTO.DTOreply;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 
 
 public class serviceBoard {

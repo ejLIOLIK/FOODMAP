@@ -40,7 +40,7 @@ public class DAOsearch extends DAOcrud {
 				DB.dto = new DTOres(rs.getString("fm_num"), rs.getString("fm_title"), rs.getString("fm_id"),
 						rs.getString("fm_time"), rs.getString("fm_hit"), rs.getString("fm_text"),
 						rs.getString("fm_reply"), rs.getString("fm_point"), rs.getString("fm_adress"),
-						rs.getString("fm_tel"), rs.getString("fm_recmd"));
+						rs.getString("fm_tel"), rs.getString("fm_recmd"), rs.getString("fm_img"));
 				list.add(DB.dto);
 			}
 		} catch (Exception e) {

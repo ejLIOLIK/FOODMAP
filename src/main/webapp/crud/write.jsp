@@ -10,13 +10,14 @@
 </head>
 <body>
 <%@include file="/homeButton.jsp" %>
-<!-- DB.dto.title, DB.dto.id, DB.dto.text, DB.dto.point, DB.dto.adress, DB.dto.tel -->
-<form action ="/board/write" method="get">
+
+<form action ="/board/write" method="post" enctype="multipart/form-data"> 
+<!-- <form action ="/imageFile.jsp" method="post" enctype="multipart/form-data">  -->
 상호명: <input type="text" name="title"> <br>
 작성자: <%=session.getAttribute("id")%> <input type="hidden" name="id" value="<%=session.getAttribute("id") %>"> <br>
 내용: <textarea name="text"></textarea> <br>
 <!-- 주소: <input type="text" name="adress"> <br> -->
-주소: <select name="adress">
+주소: <select name="adress_select">
 	<option value="서울">서울</option>
 	<option value="인천">인천</option>
 	<option value="경기">경기</option>
@@ -36,6 +37,7 @@
  </select> <br>
 연락처: <input type="text" name="tel"> <br>
 <input type="hidden" name="adress" value="<%=request.getParameter("adress")%>">
+<hr> <input type="file" name="fileName"> <hr>
 <input type="submit" value="등록">
 </form>
 

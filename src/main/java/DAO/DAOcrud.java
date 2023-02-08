@@ -42,7 +42,8 @@ public class DAOcrud extends DAO {
 						,rs.getString("fm_point")
 						,rs.getString("fm_adress")
 						,rs.getString("fm_tel")
-						,rs.getString("fm_recmd"));
+						,rs.getString("fm_recmd")
+						,rs.getString("fm_img"));
 				list.add(DB.dto);
 			}
 		} catch (Exception e) {
@@ -83,7 +84,8 @@ public class DAOcrud extends DAO {
 					,rs.getString("fm_point")
 					,rs.getString("fm_adress")
 					,rs.getString("fm_tel")
-					,rs.getString("fm_recmd"));
+					,rs.getString("fm_recmd")
+					,rs.getString("fm_img"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -93,8 +95,8 @@ public class DAOcrud extends DAO {
 	//쓰기
 	public void write() {
 		openDB();
-		String query = String.format("insert into %s (fm_title,fm_id,fm_text,fm_adress,fm_tel) value ('%s', '%s', '%s', '%s', '%s')",
-				DB.SERVER_BOARD, DB.dto.title, DB.dto.id, DB.dto.text, DB.dto.adress, DB.dto.tel);
+		String query = String.format("insert into %s (fm_title,fm_id,fm_text,fm_adress,fm_tel, fm_img) value ('%s', '%s', '%s', '%s', '%s', '%s')",
+				DB.SERVER_BOARD, DB.dto.title, DB.dto.id, DB.dto.text, DB.dto.adress, DB.dto.tel, DB.dto.img);
 		try {
 			System.out.println(query);
 			st.executeUpdate(query);

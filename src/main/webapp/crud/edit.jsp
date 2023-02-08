@@ -10,13 +10,14 @@
 </head>
 <body>
 <%@include file="/homeButton.jsp" %>
-<form action ="/board/edit_proc" method="get">
+
+<form action ="/board/edit_proc" method="post" enctype="multipart/form-data">
 번호 / <%=DB.dto.num%> <input type="hidden" name="editNum" value="<%=DB.dto.num%>">
 상호명: <input type="text" name="title" value="<%=DB.dto.title%>"> <br>
 작성자: <%=DB.dto.id%> <br>
 내용: <textarea name="text"><%=DB.dto.text%></textarea> <br>
-<%-- 주소: <input type="text" name="adress" value="<%=DB.dto.adress%>"> <br> --%>
-주소: <select name="adress">
+<%-- 주소: <input type="text" name="adress_select" value="<%=DB.dto.adress%>"> <br> --%>
+주소: <select name="adress_select">
 	<option value="서울">서울</option>
 	<option value="인천">인천</option>
 	<option value="경기">경기</option>
@@ -35,6 +36,18 @@
 	<option value="대전">대전</option>
  </select> <br>
 연락처: <input type="text" name="tel" value="<%=DB.dto.tel%>"> <br>
+<input type="hidden" name="adress" value="<%=request.getParameter("adress")%>">
+<hr> 
+<%
+if(DB.dto.img==null || DB.dto.img.equals("null")){
+	%><img src="\upload\no.jpg" alt="img" width="200"><%
+}
+else{
+	%><img src="\upload\<%=DB.dto.img%>" alt="img" width="200"><%
+}
+%>
+<br> 
+<input type="file" name="fileName"> <hr>
 <input type="submit" value="수정">
 </form>
 

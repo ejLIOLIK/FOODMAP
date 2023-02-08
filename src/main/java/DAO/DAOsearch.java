@@ -85,7 +85,7 @@ public class DAOsearch extends DAOcrud {
 			while (rs.next()) {
 				DTOjoin dtoJ = new DTOjoin(
 						rs.getString(DB.SERVER_BOARD+".fm_num"), rs.getString(DB.SERVER_BOARD+".fm_title"), rs.getString(DB.SERVER_BOARD+".fm_point"), 
-						rs.getString(DB.SERVER_BOARD+".fm_reply"), rs.getString(DB.SERVER_BOARD+".fm_adress"),
+						rs.getString(DB.SERVER_BOARD+".fm_reply"), rs.getString(DB.SERVER_BOARD+".fm_adress"), rs.getString(DB.SERVER_BOARD+".fm_img"),
 						rs.getString(DB.SERVER_REPLY+".fm_Rnum"), rs.getString(DB.SERVER_REPLY+".fm_id"), rs.getString(DB.SERVER_REPLY+".fm_point"), 
 						rs.getString(DB.SERVER_REPLY+".fm_text"), rs.getString(DB.SERVER_REPLY+".fm_date"));
 				

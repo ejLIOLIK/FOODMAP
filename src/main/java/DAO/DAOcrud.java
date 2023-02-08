@@ -109,8 +109,8 @@ public class DAOcrud extends DAO {
 	//수정
 	public void edit(String editNum) {
 		openDB();
-		String query = String.format("update %s set fm_title='%s', fm_text='%s', fm_adress='%s', fm_tel='%s' where fm_num = %s",
-				DB.SERVER_BOARD, DB.dto.title, DB.dto.text, DB.dto.adress, DB.dto.tel, editNum);
+		String query = String.format("update %s set fm_title='%s', fm_text='%s', fm_adress='%s', fm_tel='%s', fm_img='%s' where fm_num = %s",
+				DB.SERVER_BOARD, DB.dto.title, DB.dto.text, DB.dto.adress, DB.dto.tel, DB.dto.img, editNum);
 		try {
 			st.executeUpdate(query);
 		} catch (Exception e) {

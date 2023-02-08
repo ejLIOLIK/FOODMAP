@@ -12,7 +12,6 @@
 <%@include file="/homeButton.jsp" %>
 
 <form action ="/board/write" method="post" enctype="multipart/form-data"> 
-<!-- <form action ="/imageFile.jsp" method="post" enctype="multipart/form-data">  -->
 상호명: <input type="text" name="title"> <br>
 작성자: <%=session.getAttribute("id")%> <input type="hidden" name="id" value="<%=session.getAttribute("id") %>"> <br>
 내용: <textarea name="text"></textarea> <br>

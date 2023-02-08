@@ -78,7 +78,7 @@ public class serviceBoard {
 		if(daoM.checkLogin(id, pw)) {
 			session = request.getSession();
 			session.setAttribute("id", id);
-			session.setMaxInactiveInterval(20*60);
+			session.setMaxInactiveInterval(5*60);
 			return true;
 		}
 		else {return false;}
@@ -86,5 +86,18 @@ public class serviceBoard {
 	
 	public void logout() {
 		session.invalidate(); 
+	}
+	
+	public boolean adminRight() {
+		
+		String loginInfo = (String)session.getAttribute("id");
+
+		if (loginInfo != null) {
+			if (loginInfo.equals("admin")) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 }

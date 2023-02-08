@@ -131,8 +131,8 @@ public class boardProc {
 				html += " <img src='\\upload\\" + d.img + "' alt='img' width='30'> ";
 			}
 			
-			countPost++;
 			html += String.format("<a href='/board/read?adress=%s&postNum=%s&currentPage=%d&sort=%s&keyword=%s&keywordRange=%s'>%s</a> [%s] %s %s<br>", d.adress, d.num, curPage, sort, keyword, keywordRange, d.title, d.reply, d.hit, d.recmd);
+			countPost++;
 		}
 		if(countPost<DB.PAGINGNUM){
 			for(int i=0;i<DB.PAGINGNUM-countPost;i++){
@@ -152,9 +152,22 @@ public class boardProc {
 		for(DTOjoin d:listJ){
 //			게시글번호 / 게시글 평점 / 게시글 제목[리플수]
 //					ㄴ 리플평점 / 리플내용
-			html += String.format("%s/%s/%s/<a href='/board/read?postNum=%s&currentPage=%d&sort=%s&keyword=%s&keywordRange=%s'>%s</a> [%s]<br>"
+//			html += String.format("%s/%s/%s/<a href='/board/read?postNum=%s&currentPage=%d&sort=%s&keyword=%s&keywordRange=%s'>%s</a> [%s]<br>"
+//					+ "└ %s/%s/%s <br>", 
+//					d.Pnum, d.adress, d.point, d.Pnum, curPage, sort, keyword, keywordRange, d.title, d.reply, d.pointR, d.text, d.date);
+			html += String.format("%s/%s/%s/", 
+					d.Pnum, d.adress, d.point);
+					
+			if(d.img==null || d.img.equals("null")){ // 썸네일
+				html += " <img src='\\upload\\no.jpg' alt='img' width='30'> ";
+			}
+			else{
+				html += " <img src='\\upload\\" + d.img + "' alt='img' width='30'> ";
+			}
+					
+			html += String.format("<a href='/board/read?postNum=%s&currentPage=%d&sort=%s&keyword=%s&keywordRange=%s'>%s</a> [%s]<br>"
 					+ "└ %s/%s/%s <br>", 
-					d.Pnum, d.adress, d.point, d.Pnum, curPage, sort, keyword, keywordRange, d.title, d.reply, d.pointR, d.text, d.date);
+					d.Pnum, curPage, sort, keyword, keywordRange, d.title, d.reply, d.pointR, d.text, d.date);
 			countPost++;
 		}
 		if(countPost<DB.PAGINGNUM){

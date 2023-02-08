@@ -25,4 +25,8 @@ public class DB {
 	
 	public static DTOres dto;
 	public static DTOreply dtoR;	
+	
+	// 이미지 관련 설정
+	public static String encType = "UTF-8";
+	public static int maxSize = 50 * 1024 * 1024;
 }

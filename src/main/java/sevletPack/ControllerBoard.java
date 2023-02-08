@@ -23,6 +23,7 @@ import servicePack.serviceBoard;
 public class ControllerBoard extends HttpServlet {
 	String nextPage;
 	serviceBoard service; 
+	
 	@Override
 	public void init() throws ServletException {
 		service = new serviceBoard();
@@ -37,8 +38,23 @@ public class ControllerBoard extends HttpServlet {
 		if(action!=null) {
 			switch(action){
 			case "/delete":
-				nextPage = "/board/list?adress="+request.getParameter("adress");
-				service.delete(request.getParameter("delNum"));
+				if(service.adminRight()) {
+					nextPage = "/board/list?adress="+request.getParameter("adress");
+					service.delete(request.getParameter("delNum"));
+				}
+				else {
+					nextPage = "/board/list?adress="+request.getParameter("adress");
+					request.setAttribute("message", "권한이 없습니다.");
+				}
+				break;
+			case "/write":
+				if(service.adminRight()) {
+					nextPage = "/crud/write.jsp?adress="+request.getParameter("adress");
+				}
+				else {
+					nextPage = "/board/list?adress="+request.getParameter("adress");
+					request.setAttribute("message", "권한이 없습니다.");
+				}
 				break;
 			case "/read":
 				nextPage = "/crud/read.jsp?editReplyNum"+request.getParameter("editReplyNum")+"&currentPageR="+request.getParameter("currentPageR")+"&currentPageBR="+request.getParameter("currentPageBR")+"&adress="+request.getParameter("adress");
@@ -50,19 +66,24 @@ public class ControllerBoard extends HttpServlet {
 				request.setAttribute("rpp", rpp);
 				break;
 			case "/edit_insert":
-				nextPage = "/crud/edit.jsp";
-				service.read(request.getParameter("editNum"));
+				if(service.adminRight()) {
+					nextPage = "/crud/edit.jsp";
+					service.read(request.getParameter("editNum"));}
+				else {
+					nextPage = "/board/list?adress="+request.getParameter("adress");
+					request.setAttribute("message", "권한이 없습니다.");
+				}
 				break;
-			case "/edit_proc":
-				nextPage = "/board/list?adress="+request.getParameter("adress");
-				DB.dto = new DTOres(request.getParameter("title"), 
-						request.getParameter("text"), 
-						request.getParameter("adress"), 
-						request.getParameter("tel"), 
-						request.getParameter("fileName"));
-				service.edit(request.getParameter("editNum"));
-				break;
-			case "/list":		
+//			case "/edit_proc":
+//				nextPage = "/board/list?adress="+request.getParameter("adress");
+//				DB.dto = new DTOres(request.getParameter("title"), 
+//						request.getParameter("text"), 
+//						request.getParameter("adress"), 
+//						request.getParameter("tel"), 
+//						request.getParameter("fileName"));
+//				service.edit(request.getParameter("editNum"));
+//				break;
+			case "/list":	
 				nextPage="/boardList/board_ALL.jsp?adress="+request.getParameter("adress");
 				boardProc blp = new boardProc(request.getParameter("adress"),
 						request.getParameter("currentPage"), 
@@ -71,6 +92,7 @@ public class ControllerBoard extends HttpServlet {
 						request.getParameter("keyword"),
 						request.getParameter("keywordRange"));
 				request.setAttribute("blp", blp);
+				request.setAttribute("message", request.getAttribute("message"));
 				break;
 			case "/replyDelete":
 				nextPage = "/board/read?postNum="+request.getParameter("postNum")+"&adress="+request.getParameter("adress");
@@ -118,8 +140,15 @@ public class ControllerBoard extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		request.setCharacterEncoding("UTF-8");
 		String action = request.getPathInfo();
+
+		// 이미지
+		String saveFolder;
+		MultipartRequest multi;
+		String fileNameTemp;
+
 		System.out.println("action:"+action); //확인용
 		
 		if(action!=null) {
@@ -142,17 +171,13 @@ public class ControllerBoard extends HttpServlet {
 					nextPage = "/memjoin.jsp";}
 				break;
 			case "/write":
-				MultipartRequest multi = null;
-				
-			    String saveFolder = request.getServletContext().getRealPath("/upload"); // 경로 상수화 ?
-			    String encType = "UTF-8"; // 상수화 ? 
-			    String fileNameTemp = "";
-			    
-			    int maxSize = 50 * 1024 * 1024; // 50mb //상수화 ? 
+				saveFolder = request.getServletContext().getRealPath("/upload");
+				multi = null;
+				fileNameTemp = "";
 			    
 			    try {
-			        multi = new MultipartRequest(request, saveFolder, maxSize,
-			                encType, new DefaultFileRenamePolicy());
+			        multi = new MultipartRequest(request, saveFolder, DB.maxSize,
+			        		DB.encType, new DefaultFileRenamePolicy());
 			        
 			        String fileName = multi.getFilesystemName("fileName");
 			        fileNameTemp = fileName; //"\\upload\\" 파일명만 저장하고 가져올 때 가공.
@@ -170,6 +195,33 @@ public class ControllerBoard extends HttpServlet {
 						multi.getParameter("tel"),
 						fileNameTemp);
 				service.write();
+				nextPage = "/listGate.jsp?adress="+multi.getParameter("adress");
+				break;
+			case "/edit_proc":
+				System.out.println("post edit proc.");
+				saveFolder = request.getServletContext().getRealPath("/upload");
+				multi = null;
+				fileNameTemp = "";
+			    
+			    try {
+			        multi = new MultipartRequest(request, saveFolder, DB.maxSize,
+			        		DB.encType, new DefaultFileRenamePolicy());
+			        
+			        String fileName = multi.getFilesystemName("fileName");
+			        fileNameTemp = fileName; //"\\upload\\" 파일명만 저장하고 가져올 때 가공.
+
+			    } catch (IOException ioe) {
+			        System.out.println(ioe);
+			    } catch (Exception ex) {
+			        System.out.println(ex);
+			    }
+				
+			    DB.dto = new DTOres(multi.getParameter("title"), 
+						multi.getParameter("text"), 
+						multi.getParameter("adress_select"), 
+						multi.getParameter("tel"), 
+						fileNameTemp);
+				service.edit(multi.getParameter("editNum"));
 				nextPage = "/listGate.jsp?adress="+multi.getParameter("adress");
 				break;
 			}

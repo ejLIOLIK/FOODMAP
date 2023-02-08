@@ -8,6 +8,7 @@ public class DTOjoin {
 	public String point; //총평점
 	public String reply;
 	public String adress;
+	public String img;
 	//리플
 	public String Rnum;
 	public String id;
@@ -15,12 +16,13 @@ public class DTOjoin {
 	public String text;
 	public String date;
 
-	public DTOjoin(String Pnum, String title, String point, String reply, String adress, String Rnum, String id, String pointR, String text, String date) {
+	public DTOjoin(String Pnum, String title, String point, String reply, String adress, String img, String Rnum, String id, String pointR, String text, String date) {
 		this.Pnum = Pnum;
 		this.title = title;
 		this.point = point;
 		this.reply = reply;
 		this.adress = adress;
+		this.img = img;
 		this.Rnum = Rnum;
 		this.id = id;
 		this.pointR = pointR;

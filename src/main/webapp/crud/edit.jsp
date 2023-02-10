@@ -36,7 +36,7 @@
 	<option value="대전">대전</option>
  </select> <br>
 연락처: <input type="text" name="tel" value="<%=DB.dto.tel%>"> <br>
-<input type="hidden" name="adress" value="<%=request.getParameter("adress")%>">
+<input type="hidden" name="category" value="<%=request.getParameter("category")%>">
 <hr> 
 <%
 if(DB.dto.img==null || DB.dto.img.equals("null")){

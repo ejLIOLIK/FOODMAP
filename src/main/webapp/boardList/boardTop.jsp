@@ -17,25 +17,25 @@
 </select>
 
 <%if(blp.blSearchCheck()){ 
-	%><input type="search" name="keyword" value="<%=blp.keywordDcd%>" required="required"><% }
+	%><input type="search" name="keyword" value="<%=blp.keyword%>" required="required"><% }
 else{
 	%><input type="search" name="keyword" required="required"><% }%>
-<input type="hidden" name="adress" value="<%=blp.adressDcd%>">
+<input type="hidden" name="category" value="<%=blp.category%>">
 <input type="submit" value="🔍">
 </form>
 
 <hr>
 <%if(blp.blSearchCheck()){%>
-<a href="/board/list?adress=<%=blp.adressDcd%>&sort=new&keyword=<%=blp.keywordDcd%>&keywordRange=<%=blp.keywordRange%>">최신순</a>
-<a href="/board/list?adress=<%=blp.adressDcd%>&sort=old&keyword=<%=blp.keywordDcd%>&keywordRange=<%=blp.keywordRange%>">오래된순</a>
-<a href="/board/list?adress=<%=blp.adressDcd%>&sort=high&keyword=<%=blp.keywordDcd%>&keywordRange=<%=blp.keywordRange%>">평점높은순</a>
-<a href="/board/list?adress=<%=blp.adressDcd%>&sort=low&keyword=<%=blp.keywordDcd%>&keywordRange=<%=blp.keywordRange%>">평점낮은순</a>
+<a href="/board/list?category=<%=blp.categoryEcd%>&sort=new&keyword=<%=blp.keywordEcd%>&keywordRange=<%=blp.keywordRange%>">최신순</a>
+<a href="/board/list?category=<%=blp.categoryEcd%>&sort=old&keyword=<%=blp.keywordEcd%>&keywordRange=<%=blp.keywordRange%>">오래된순</a>
+<a href="/board/list?category=<%=blp.categoryEcd%>&sort=high&keyword=<%=blp.keywordEcd%>&keywordRange=<%=blp.keywordRange%>">평점높은순</a>
+<a href="/board/list?category=<%=blp.categoryEcd%>&sort=low&keyword=<%=blp.keywordEcd%>&keywordRange=<%=blp.keywordRange%>">평점낮은순</a>
 <%}
 else{%>
-<a href="/board/list?adress=<%=blp.adressDcd%>&sort=new">최신순</a>
-<a href="/board/list?adress=<%=blp.adressDcd%>&sort=old">오래된순</a>
-<a href="/board/list?adress=<%=blp.adressDcd%>&sort=high">평점높은순</a>
-<a href="/board/list?adress=<%=blp.adressDcd%>&sort=low">평점낮은순</a>
+<a href="/board/list?category=<%=blp.categoryEcd%>&sort=new">최신순</a>
+<a href="/board/list?category=<%=blp.categoryEcd%>&sort=old">오래된순</a>
+<a href="/board/list?category=<%=blp.categoryEcd%>&sort=high">평점높은순</a>
+<a href="/board/list?category=<%=blp.categoryEcd%>&sort=low">평점낮은순</a>
 <%}%>
 <hr>
 no./지역/평점/ title / 조회수 / 추천수

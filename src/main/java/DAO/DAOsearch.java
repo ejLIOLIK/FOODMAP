@@ -10,7 +10,7 @@ public class DAOsearch extends DAOcrud {
 	
 
 	//서치 리스트
-	public ArrayList<DTOres> list(String adress, String sort, String currentPage, String keyword, String keywordRange) {
+	public ArrayList<DTOres> list(String category, String sort, String currentPage, String keyword, String keywordRange) {
 		sort = sortSwitch(sort); // 정렬기준을 SQL 쿼리문에 맞게 변환
 		ArrayList<DTOres> list = new ArrayList<DTOres>();
 		String query="";
@@ -23,14 +23,14 @@ public class DAOsearch extends DAOcrud {
 		
 		openDB();
 		
-		if(adress==null || adress.equals("null")) {
+		if(category==null || category.equals("null")) {
 			query= String.format("select *from %s where %s order by %s limit %s, %s"
 					, DB.SERVER_BOARD, switchsearchRange(keyword, keywordRange), sort,
 					(currentPageN - 1) * DB.PAGINGNUM, DB.PAGINGNUM);
 		}
 		else {
 			query= String.format("select *from %s where %s AND fm_adress='%s' order by %s limit %s, %s"
-					, DB.SERVER_BOARD, switchsearchRange(keyword, keywordRange), adress, sort,
+					, DB.SERVER_BOARD, switchsearchRange(keyword, keywordRange), category, sort,
 					(currentPageN - 1) * DB.PAGINGNUM, DB.PAGINGNUM);
 		}
 		
@@ -54,7 +54,7 @@ public class DAOsearch extends DAOcrud {
 	}
 	
 	//서치 리스트 //검색 범위가 리플인 경우
-	public ArrayList<DTOjoin> listSearchReply(String adress, String sort, String currentPage, String keyword) {
+	public ArrayList<DTOjoin> listSearchReply(String category, String sort, String currentPage, String keyword) {
 		
 		sort = sortSwitchReply(sort); // 정렬기준을 SQL 쿼리문에 맞게 변환
 		ArrayList<DTOjoin> list = new ArrayList<DTOjoin>();
@@ -69,14 +69,14 @@ public class DAOsearch extends DAOcrud {
 		
 		openDB();
 		
-		if(adress==null || adress.equals("null")) {
+		if(category==null || category.equals("null")) {
 			query= String.format("select *from %s where %s order by %s limit %s, %s"
 				, DB.SERVER_JOIN, switchsearchRange(keyword, "reply"), sort,
 				(currentPageN - 1) * DB.PAGINGNUM, DB.PAGINGNUM);
 		}
 		else {
 			query= String.format("select *from %s where %s AND fm_adress='%s' order by %s limit %s, %s"
-					, DB.SERVER_JOIN, switchsearchRange(keyword, "reply"), adress, sort,
+					, DB.SERVER_JOIN, switchsearchRange(keyword, "reply"), category, sort,
 					(currentPageN - 1) * DB.PAGINGNUM, DB.PAGINGNUM);
 		}
 		
@@ -102,13 +102,13 @@ public class DAOsearch extends DAOcrud {
 	}
 	
 	//전체 포스트 수
-	public String countPostDB(String adress, String keyword, String keywordRange) {
+	public String countPostDB(String category, String keyword, String keywordRange) {
 		openDB();
 		
 		String query="";
 		String mountPost = "";
 		
-		if(adress==null || adress.equals("null")) {
+		if(category==null || category.equals("null")) {
 			if(keywordRange.equals("reply")) { //리플검색 결과창으로 분기
 				query = String.format("select count(*) from %s where %s ", DB.SERVER_JOIN, switchsearchRange(keyword, keywordRange));	}
 			else {
@@ -117,10 +117,10 @@ public class DAOsearch extends DAOcrud {
 		else {
 			if(keywordRange.equals("reply")) { //리플검색 결과창으로 분기
 				query = String.format("select count(*) from %s where %s AND fm_adress ='%s' ", 
-						DB.SERVER_JOIN, switchsearchRange(keyword, keywordRange), adress);		}
+						DB.SERVER_JOIN, switchsearchRange(keyword, keywordRange), category);		}
 			else {
 				query = String.format("select count(*) from %s where %s AND fm_adress ='%s'  ", 
-						DB.SERVER_BOARD, switchsearchRange(keyword, keywordRange), adress);		}
+						DB.SERVER_BOARD, switchsearchRange(keyword, keywordRange), category);		}
 		}
 		
 		try {

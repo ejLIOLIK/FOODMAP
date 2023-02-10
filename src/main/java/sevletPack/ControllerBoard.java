@@ -1,6 +1,7 @@
 package sevletPack;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -40,25 +41,25 @@ public class ControllerBoard extends HttpServlet {
 			switch(action){
 			case "/delete":
 				if(service.adminRight()) {
-					nextPage = "/board/list?adress="+request.getParameter("adress");
+					nextPage = "/board/list?category="+request.getParameter("category");
 					service.delete(request.getParameter("delNum"));
 				}
 				else {
-					nextPage = "/board/list?adress="+request.getParameter("adress");
+					nextPage = "/board/list?category="+request.getParameter("category");
 					request.setAttribute("message", "권한이 없습니다.");
 				}
 				break;
 			case "/write":
 				if(service.adminRight()) {
-					nextPage = "/crud/write.jsp?adress="+request.getParameter("adress");
+					nextPage = "/crud/write.jsp?category="+request.getParameter("category");
 				}
 				else {
-					nextPage = "/board/list?adress="+request.getParameter("adress");
+					nextPage = "/board/list?category="+request.getParameter("category");
 					request.setAttribute("message", "권한이 없습니다.");
 				}
 				break;
 			case "/read":
-				nextPage = "/crud/read.jsp?editReplyNum"+request.getParameter("editReplyNum")+"&currentPageR="+request.getParameter("currentPageR")+"&currentPageBR="+request.getParameter("currentPageBR")+"&adress="+request.getParameter("adress");
+				nextPage = "/crud/read.jsp?editReplyNum"+request.getParameter("editReplyNum")+"&currentPageR="+request.getParameter("currentPageR")+"&currentPageBR="+request.getParameter("currentPageBR")+"&category="+request.getParameter("category");
 				service.read(request.getParameter("postNum"));
 				replyProc rpp = new replyProc(request.getParameter("postNum"), 
 						request.getParameter("currentPageR"), 
@@ -71,22 +72,13 @@ public class ControllerBoard extends HttpServlet {
 					nextPage = "/crud/edit.jsp";
 					service.read(request.getParameter("editNum"));}
 				else {
-					nextPage = "/board/list?adress="+request.getParameter("adress");
+					nextPage = "/board/list?category="+request.getParameter("category");
 					request.setAttribute("message", "권한이 없습니다.");
 				}
 				break;
-//			case "/edit_proc":
-//				nextPage = "/board/list?adress="+request.getParameter("adress");
-//				DB.dto = new DTOres(request.getParameter("title"), 
-//						request.getParameter("text"), 
-//						request.getParameter("adress"), 
-//						request.getParameter("tel"), 
-//						request.getParameter("fileName"));
-//				service.edit(request.getParameter("editNum"));
-//				break;
 			case "/list":	
-				nextPage="/boardList/board_ALL.jsp?adress="+request.getParameter("adress");
-				boardProc blp = new boardProc(request.getParameter("adress"),
+				nextPage="/boardList/board_ALL.jsp?category="+request.getParameter("category");
+				boardProc blp = new boardProc(request.getParameter("category"),
 						request.getParameter("currentPage"), 
 						request.getParameter("currentPagingPage"),
 						request.getParameter("sort"),
@@ -96,37 +88,37 @@ public class ControllerBoard extends HttpServlet {
 				request.setAttribute("message", request.getAttribute("message"));
 				break;
 			case "/replyDelete":
-				nextPage = "/board/read?postNum="+request.getParameter("postNum")+"&adress="+request.getParameter("adress");
+				nextPage = "/board/read?postNum="+request.getParameter("postNum")+"&category="+request.getParameter("category");
 				service.deleteReply(request.getParameter("delNum"), request.getParameter("postNum"));
 				break;
 			case "/replyEdit":
-				nextPage = "/board/read?editReplyNum=null&num="+request.getParameter("postNum")+"&adress="+request.getParameter("adress");
+				nextPage = "/board/read?editReplyNum=null&num="+request.getParameter("postNum")+"&category="+request.getParameter("category");
 				DB.dtoR = new DTOreply(request.getParameter("point"), 
 						request.getParameter("text"));
 				service.editReply(request.getParameter("editReplyNum"), request.getParameter("postNum")); 
 				break;
 			case "/replyWrite":
 				if(request.getParameter("id").equals("null") || request.getParameter("id")==null) {
-					nextPage = "/board/rightWriteR_login?num="+request.getParameter("postNum")+"&adress="+request.getParameter("adress");}
+					nextPage = "/board/rightWriteR_login?num="+request.getParameter("postNum")+"&category="+request.getParameter("category");}
 				else {
-					nextPage = "/board/read?postNum="+request.getParameter("postNum")+"&adress="+request.getParameter("adress");
+					nextPage = "/board/read?postNum="+request.getParameter("postNum")+"&category="+request.getParameter("category");
 					DB.dtoR = new DTOreply(request.getParameter("postNum"), request.getParameter("id"), request.getParameter("point"), request.getParameter("text")); 
 					service.writeReply(request.getParameter("postNum"));}
 				break;
 			case "/rightWrite_login":
-				nextPage = "/board/list?adress="+request.getParameter("adress");
+				nextPage = "/board/list?category="+request.getParameter("category");
 				request.setAttribute("message", "로그인 후 이용하세요.");
 				break;
 			case "/rightWrite_id":
-				nextPage = "/board/list?adress="+request.getParameter("adress");
+				nextPage = "/board/list?category="+request.getParameter("category");
 				request.setAttribute("message", "로그인 후 이용하세요.");
 				break;
 			case "/rightWriteR_login":
-				nextPage = "/board/read?postNum="+request.getParameter("postNum")+"&adress="+request.getParameter("adress");
+				nextPage = "/board/read?postNum="+request.getParameter("postNum")+"&category="+request.getParameter("category");
 				request.setAttribute("message", "로그인 후 이용하세요.");
 				break;
 			case "/rightWriteR_id":
-				nextPage = "/board/read?postNum="+request.getParameter("postNum")+"&adress="+request.getParameter("adress");
+				nextPage = "/board/read?postNum="+request.getParameter("postNum")+"&category="+request.getParameter("category");
 				request.setAttribute("message", "권한이 없습니다.");
 				break;
 			case "/logout":
@@ -198,7 +190,8 @@ public class ControllerBoard extends HttpServlet {
 						fileNameTemp);
 				service.write();
 //				request.setAttribute("adress", multi.getParameter("adress"));
-				nextPage = "/listGate.jsp";
+				String tempCateWrite= URLEncoder.encode(multi.getParameter("category"), "UTF-8");
+				nextPage = "/listGate.jsp?category="+tempCateWrite;
 				break;
 			case "/edit_proc":
 //				System.out.println("post edit proc.");
@@ -226,6 +219,9 @@ public class ControllerBoard extends HttpServlet {
 						fileNameTemp);
 				service.edit(multi.getParameter("editNum"));
 //				request.setAttribute("adress", multi.getParameter("adress"));
+				//java.lang.IllegalArgumentException: The Unicode character [인] at code point [51,064] cannot be encoded as it is outside the permitted range of 0 to 255
+//				String tempCateEdit= URLEncoder.encode(multi.getParameter("category"), "UTF-8");
+//				nextPage = "/listGate.jsp?category="+tempCateEdit;
 				nextPage = "/listGate.jsp";
 				break;
 			}

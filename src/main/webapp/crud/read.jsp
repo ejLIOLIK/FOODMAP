@@ -34,15 +34,15 @@ else{
 <hr>
 
 <!-- 추천 완료 / 이미 추천한 경우 팝업 메시지 / 추천 취소? -->
-추천하시겠습니까? <button type="button" onclick='/board/recommand?adress= &postNum= &recmdNum'>👍</button> 
+추천하시겠습니까? <button type="button" onclick='/board/recommand?category= &postNum= &recmdNum'>👍</button> 
 
 <hr>
 <!-- ---리플------------------------------------ -->
 <%@include file = "/reply/reply.jsp" %>
 <!-- ------------------------------------------ -->
 <hr>
-<br><a href="/board/list?adress=<%=request.getParameter("adress")%>">게시판</a>
-<br><a href="/board/delete?adress=<%=request.getParameter("adress")%>&delNum=<%=DB.dto.num%>">삭제</a>
-<br><a href="/board/edit_insert?adress=<%=request.getParameter("adress")%>&editNum=<%=DB.dto.num%>">수정</a>
+<br><a href="/board/list?category=<%=request.getParameter("category")%>">게시판</a>
+<br><a href="/board/delete?category=<%=request.getParameter("category")%>&delNum=<%=DB.dto.num%>">삭제</a>
+<br><a href="/board/edit_insert?category=<%=request.getParameter("category")%>&editNum=<%=DB.dto.num%>">수정</a>
 </body>
 </html>

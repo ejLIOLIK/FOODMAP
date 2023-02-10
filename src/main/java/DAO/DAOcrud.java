@@ -9,7 +9,7 @@ import DTO.DTOres;
 public class DAOcrud extends DAO {
 	
 	//전체 리스트
-	public ArrayList<DTOres> list(String adress, String sort, String currentPage) {
+	public ArrayList<DTOres> list(String category, String sort, String currentPage) {
 		sort = sortSwitch(sort); // 정렬기준을 SQL 쿼리문에 맞게 변환
 
 		int currentPageN;
@@ -22,14 +22,15 @@ public class DAOcrud extends DAO {
 		ArrayList<DTOres> list = new ArrayList<DTOres>();		
 		openDB();
 		
-		if(adress==null || adress.equals("null")) {
+		if(category==null || category.equals("null")) {
 			query = String.format("select *from %s order by %s limit %s, %s", DB.SERVER_BOARD, sort, (currentPageN-1)*DB.PAGINGNUM, DB.PAGINGNUM);			
 		}
 		else {
 			query = String.format("select *from %s where fm_adress = '%s' order by %s limit %s, %s", 
-					DB.SERVER_BOARD, adress, sort, (currentPageN-1)*DB.PAGINGNUM, DB.PAGINGNUM);
+					DB.SERVER_BOARD, category, sort, (currentPageN-1)*DB.PAGINGNUM, DB.PAGINGNUM);
 		}
 		try {
+			System.out.println(query);
 			rs = st.executeQuery(query);
 			while(rs.next()) { 
 				DB.dto = new DTOres(rs.getString("fm_num")
@@ -132,15 +133,15 @@ public class DAOcrud extends DAO {
 	}
 	
 	//전체 포스트 수
-	public String countPostDB(String adress) {
+	public String countPostDB(String category) {
 		openDB();
 		
 		String query;
 		
-		if(adress==null || adress.equals("null")) {
+		if(category==null || category.equals("null")) {
 			query = String.format("select count(*) from %s", DB.SERVER_BOARD);}
 		else {
-			query = String.format("select count(*) from %s where fm_adress='%s'", DB.SERVER_BOARD, adress);}
+			query = String.format("select count(*) from %s where fm_adress='%s'", DB.SERVER_BOARD, category);}
 		
 		String mountPost = "";
 		try {

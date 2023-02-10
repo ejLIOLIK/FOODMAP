@@ -19,7 +19,6 @@ String loginInfo = (String)session.getAttribute("id");
 상호명: <input type="text" name="title"> <br>
 작성자: <%=session.getAttribute("id")%> <input type="hidden" name="id" value="<%=loginInfo %>"> <br>
 내용: <textarea name="text"></textarea> <br>
-<!-- 주소: <input type="text" name="adress"> <br> -->
 주소: <select name="adress_select">
 	<option value="서울">서울</option>
 	<option value="인천">인천</option>
@@ -39,12 +38,12 @@ String loginInfo = (String)session.getAttribute("id");
 	<option value="대전">대전</option>
  </select> <br>
 연락처: <input type="text" name="tel"> <br>
-<input type="hidden" name="adress" value="<%=request.getParameter("adress")%>">
+<input type="hidden" name="category" value="<%=request.getParameter("category")%>">
 <hr> <input type="file" name="fileName"> <hr>
 <input type="submit" value="등록">
 </form>
 
-<br><a href="/board/list?adress=<%=request.getParameter("adress")%>">뒤로</a>
+<br><a href="/board/list?category=<%=request.getParameter("category")%>">뒤로</a>
 
 </body>
 </html>

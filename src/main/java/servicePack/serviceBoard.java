@@ -78,7 +78,7 @@ public class serviceBoard {
 		if(daoM.checkLogin(id, pw)) {
 			session = request.getSession();
 			session.setAttribute("id", id);
-			session.setMaxInactiveInterval(20);
+			session.setMaxInactiveInterval(5*60);
 			return true;
 		}
 		else {return false;}
@@ -86,8 +86,7 @@ public class serviceBoard {
 	
 	public void logout() {
 		//request.getSession
-//		if(session.getAttribute("id")!=null) {
-			if(session!=null) {
+		if(session.getAttribute("id")!=null) {
 			session.invalidate();
 		}
 	}
@@ -102,5 +101,14 @@ public class serviceBoard {
 		}
 		
 		return false;
+	}
+	
+	public boolean recmdCheck(String postNum) {
+		//세션이랑 비교해서 기존 추천 여부 리턴
+		return false;
+	}
+	
+	public void recmdUpDown(boolean blRecmd) {
+		// 여부 따라서 추천 수 + - 하고 DB에서 내역 삭제
 	}
 }

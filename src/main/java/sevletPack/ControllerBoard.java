@@ -125,6 +125,9 @@ public class ControllerBoard extends HttpServlet {
 				nextPage = "/index.jsp";
 				service.logout(); // 리퀘스트전달 todo //
 				break;
+			case "/recommand":
+				nextPage = "/board/read?postNum="+request.getParameter("postNum")+"&category="+request.getParameter("category");
+				break;
 			}
 		}
 		RequestDispatcher d = request.getRequestDispatcher(nextPage);
@@ -134,8 +137,7 @@ public class ControllerBoard extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-//		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html;charset=utf-8"); 
+		request.setCharacterEncoding("UTF-8");
 		String action = request.getPathInfo();
 
 		// 이미지
@@ -202,7 +204,11 @@ public class ControllerBoard extends HttpServlet {
 			        		DB.encType, new DefaultFileRenamePolicy());
 			        
 			        String fileName = multi.getFilesystemName("fileName");
-			        fileNameTemp = fileName; //"\\upload\\" 파일명만 저장하고 가져올 때 가공.
+			        
+			        if(fileName==null) {
+			        	fileNameTemp = multi.getParameter("oldFileName");  } // 수정 안하는 경우
+			        else {
+			        	fileNameTemp = fileName; }
 
 			    } catch (IOException ioe) {
 			        System.out.println(ioe);

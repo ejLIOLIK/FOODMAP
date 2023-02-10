@@ -48,6 +48,7 @@ else{
 %>
 <br> 
 <input type="file" name="fileName"> <hr>
+<input type="hidden" name="oldFileName" value="<%=DB.dto.img%>">
 <input type="submit" value="수정">
 </form>
 

@@ -11,9 +11,13 @@
 <body>
 <%@include file="/homeButton.jsp" %>
 
+<% 
+String loginInfo = (String)session.getAttribute("id");
+%>
+
 <form action ="/board/write" method="post" enctype="multipart/form-data"> 
 상호명: <input type="text" name="title"> <br>
-작성자: <%=session.getAttribute("id")%> <input type="hidden" name="id" value="<%=session.getAttribute("id") %>"> <br>
+작성자: <%=session.getAttribute("id")%> <input type="hidden" name="id" value="<%=loginInfo %>"> <br>
 내용: <textarea name="text"></textarea> <br>
 <!-- 주소: <input type="text" name="adress"> <br> -->
 주소: <select name="adress_select">

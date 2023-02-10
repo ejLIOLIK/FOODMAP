@@ -78,21 +78,24 @@ public class serviceBoard {
 		if(daoM.checkLogin(id, pw)) {
 			session = request.getSession();
 			session.setAttribute("id", id);
-			session.setMaxInactiveInterval(5*60);
+			session.setMaxInactiveInterval(20);
 			return true;
 		}
 		else {return false;}
 	}
 	
 	public void logout() {
-		session.invalidate(); 
+		//request.getSession
+//		if(session.getAttribute("id")!=null) {
+			if(session!=null) {
+			session.invalidate();
+		}
 	}
 	
 	public boolean adminRight() {
 		
-		String loginInfo = (String)session.getAttribute("id");
-
-		if (loginInfo != null) {
+		if(session.getAttribute("id")!=null) {
+			String loginInfo = (String)session.getAttribute("id");
 			if (loginInfo.equals("admin")) {
 				return true;
 			}

@@ -1,3 +1,5 @@
+
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -10,7 +12,8 @@
 
 <!-- post > get -->
 <%
-response.sendRedirect("/board/list?adress="+request.getParameter("adress"));
+// response.sendRedirect("/board/list?adress="+request.getAttribute("adress"));
+response.sendRedirect("/board/list");
 %>
 
 </body>

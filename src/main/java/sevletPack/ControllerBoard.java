@@ -32,6 +32,7 @@ public class ControllerBoard extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+//		response.setContentType("text/html;charset=utf-8"); 
 		String action = request.getPathInfo();
 		System.out.println("action:"+action); //확인용
 		
@@ -130,7 +131,7 @@ public class ControllerBoard extends HttpServlet {
 				break;
 			case "/logout":
 				nextPage = "/index.jsp";
-				service.logout();
+				service.logout(); // 리퀘스트전달 todo //
 				break;
 			}
 		}
@@ -141,7 +142,8 @@ public class ControllerBoard extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		request.setCharacterEncoding("UTF-8");
+//		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html;charset=utf-8"); 
 		String action = request.getPathInfo();
 
 		// 이미지
@@ -195,10 +197,11 @@ public class ControllerBoard extends HttpServlet {
 						multi.getParameter("tel"),
 						fileNameTemp);
 				service.write();
-				nextPage = "/listGate.jsp?adress="+multi.getParameter("adress");
+//				request.setAttribute("adress", multi.getParameter("adress"));
+				nextPage = "/listGate.jsp";
 				break;
 			case "/edit_proc":
-				System.out.println("post edit proc.");
+//				System.out.println("post edit proc.");
 				saveFolder = request.getServletContext().getRealPath("/upload");
 				multi = null;
 				fileNameTemp = "";
@@ -222,7 +225,8 @@ public class ControllerBoard extends HttpServlet {
 						multi.getParameter("tel"), 
 						fileNameTemp);
 				service.edit(multi.getParameter("editNum"));
-				nextPage = "/listGate.jsp?adress="+multi.getParameter("adress");
+//				request.setAttribute("adress", multi.getParameter("adress"));
+				nextPage = "/listGate.jsp";
 				break;
 			}
 		}

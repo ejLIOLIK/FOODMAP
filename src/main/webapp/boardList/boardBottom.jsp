@@ -9,7 +9,7 @@
 <body>
 <%
 String checkID = (String)session.getAttribute("id");
-if(checkID==null || checkID.equals("null")){
+if(checkID==null || !request.isRequestedSessionIdValid()){
 %><a href="/board/rightWrite_login?adress=<%=request.getParameter("adress")%>">글쓰기</a> 	
 <%}
 else{	

@@ -33,7 +33,7 @@ ID: <%@include file = "loginInfo.jsp"%>
 <hr>
 
 <% 
-if(id==null || id.equals("null")){
+if(id==null || !request.isRequestedSessionIdValid()){
 	%><a href="/login.jsp">로그인/회원가입</a><%
 }
 else{

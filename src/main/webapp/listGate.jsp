@@ -13,7 +13,9 @@
 <!-- post > get -->
 <%
 // response.sendRedirect("/board/list?category="+request.getParameter("category"));
-response.sendRedirect("/board/list");
+response.sendRedirect("/board/list?category="+request.getAttribute("category"));
+// response.sendRedirect("/board/list");
+
 %>
 
 </body>

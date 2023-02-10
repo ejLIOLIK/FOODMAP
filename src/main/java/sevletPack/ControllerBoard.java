@@ -189,12 +189,10 @@ public class ControllerBoard extends HttpServlet {
 						multi.getParameter("tel"),
 						fileNameTemp);
 				service.write();
-//				request.setAttribute("adress", multi.getParameter("adress"));
-				String tempCateWrite= URLEncoder.encode(multi.getParameter("category"), "UTF-8");
-				nextPage = "/listGate.jsp?category="+tempCateWrite;
+				request.setAttribute("category", URLEncoder.encode(multi.getParameter("category"), "UTF-8"));
+				nextPage = "/listGate.jsp";
 				break;
 			case "/edit_proc":
-//				System.out.println("post edit proc.");
 				saveFolder = request.getServletContext().getRealPath("/upload");
 				multi = null;
 				fileNameTemp = "";
@@ -218,10 +216,7 @@ public class ControllerBoard extends HttpServlet {
 						multi.getParameter("tel"), 
 						fileNameTemp);
 				service.edit(multi.getParameter("editNum"));
-//				request.setAttribute("adress", multi.getParameter("adress"));
-				//java.lang.IllegalArgumentException: The Unicode character [인] at code point [51,064] cannot be encoded as it is outside the permitted range of 0 to 255
-//				String tempCateEdit= URLEncoder.encode(multi.getParameter("category"), "UTF-8");
-//				nextPage = "/listGate.jsp?category="+tempCateEdit;
+				request.setAttribute("category", URLEncoder.encode(multi.getParameter("category"), "UTF-8"));
 				nextPage = "/listGate.jsp";
 				break;
 			}

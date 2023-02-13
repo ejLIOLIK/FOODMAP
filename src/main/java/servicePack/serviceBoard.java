@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import DAO.DAOmem;
+import DAO.DAOrecmd;
 import DAO.DAOreply;
 import DAO.DAOsearch;
 import DTO.DTOreply;
@@ -15,6 +16,7 @@ public class serviceBoard {
 	DAOsearch dao;
 	DAOreply daoR;
 	DAOmem daoM;
+	DAOrecmd daoRecmd;
 	ArrayList<DTOreply> listR;
 	HttpSession session;
 	
@@ -22,6 +24,7 @@ public class serviceBoard {
 		dao = new DAOsearch();
 		daoR = new DAOreply();
 		daoM = new DAOmem();
+		daoRecmd = new DAOrecmd();
 	}
 	
 	public void delete(String delNum) {
@@ -85,30 +88,47 @@ public class serviceBoard {
 	}
 	
 	public void logout() {
-		//request.getSession
-		if(session.getAttribute("id")!=null) {
+		if(!getIdSession().equals("null")) {
 			session.invalidate();
 		}
 	}
 	
 	public boolean adminRight() {
 		
-		if(session.getAttribute("id")!=null) {
-			String loginInfo = (String)session.getAttribute("id");
-			if (loginInfo.equals("admin")) {
+		if (getIdSession().equals("admin")) {
 				return true;
-			}
-		}
-		
+		}		
 		return false;
 	}
 	
 	public boolean recmdCheck(String postNum) {
-		//세션이랑 비교해서 기존 추천 여부 리턴
-		return false;
+		if(!getIdSession().equals("null")) {
+			return daoRecmd.recmdCheck(getIdSession(), postNum);
+		}
+		else {
+			return false;
+		}
 	}
 	
-	public void recmdUpDown(boolean blRecmd) {
+	public void recmdUpDown(boolean blRecmd, String postNum) {
 		// 여부 따라서 추천 수 + - 하고 DB에서 내역 삭제
+		if(blRecmd) {
+			daoRecmd.recmdDown(postNum);
+			daoRecmd.recmdDelete(getIdSession(), postNum);
+		}
+		else {
+			daoRecmd.recmdUp(postNum);
+			daoRecmd.recmdInsert(getIdSession(), postNum);
+		}
+	}
+	
+	public String getIdSession() {
+		if(session!=null) {
+			return (String)session.getAttribute("id");
+		}
+		else {
+			return "null";
+		}
+		
 	}
 }

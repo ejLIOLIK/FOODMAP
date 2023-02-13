@@ -31,7 +31,7 @@ public class boardProc {
 		this.keywordRange = keywordRange;
 		dao = new DAOsearch();
 				
-		// 어드레스 디코딩
+		// 주소
 		if(category==null || category.equals("null")) {
 			this.category = null;
 			categoryEcd=null;
@@ -42,16 +42,10 @@ public class boardProc {
 				categoryEcd = URLEncoder.encode(category, "UTF-8");
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
-			}
-			
-//			try {
-//				this.category = URLDecoder.decode(category, "UTF-8");
-//			} catch (UnsupportedEncodingException e) {
-//				e.printStackTrace();
-//			}			
+			}		
 		}
 		
-		// 키워드 디코딩
+		// 검색어
 		if(keyword==null || keyword.equals("null")) {
 			this.keyword = null;
 			keywordEcd=null;
@@ -62,13 +56,7 @@ public class boardProc {
 				keywordEcd = URLEncoder.encode(keyword, "UTF-8");
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
-			}
-			
-//			try {
-//				keyword = URLDecoder.decode(keyword, "UTF-8");
-//			} catch (UnsupportedEncodingException e) {
-//				e.printStackTrace();
-//			}			
+			}		
 		}
 	
 		totalPage = mountPage(category, keyword, keywordRange);
@@ -122,8 +110,6 @@ public class boardProc {
 		
 		int countPost = 0;
 		for(DTOres d:list){
-//			html += String.format("%s/%s/%s/<a href='/board/read?adress=%s&postNum=%s&currentPage=%d&sort=%s&keyword=%s&keywordRange=%s'> %s</a> [%s] %s %s<br>", 
-//					d.num, d.adress, d.point, d.adress, d.num, curPage, sort, keyword, keywordRange, d.title, d.reply, d.hit, d.recmd);
 			html += String.format("%s/%s/%s/", d.num, d.adress, d.point);
 
 			if(d.img==null || d.img.equals("null")){ // 썸네일
@@ -155,9 +141,6 @@ public class boardProc {
 		for(DTOjoin d:listJ){
 //			게시글번호 / 게시글 평점 / 게시글 제목[리플수]
 //					ㄴ 리플평점 / 리플내용
-//			html += String.format("%s/%s/%s/<a href='/board/read?postNum=%s&currentPage=%d&sort=%s&keyword=%s&keywordRange=%s'>%s</a> [%s]<br>"
-//					+ "└ %s/%s/%s <br>", 
-//					d.Pnum, d.adress, d.point, d.Pnum, curPage, sort, keyword, keywordRange, d.title, d.reply, d.pointR, d.text, d.date);
 			html += String.format("%s/%s/%s/", 
 					d.Pnum, d.adress, d.point);
 					

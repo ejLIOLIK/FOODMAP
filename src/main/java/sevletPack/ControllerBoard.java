@@ -33,7 +33,6 @@ public class ControllerBoard extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-//		response.setContentType("text/html;charset=utf-8"); 
 		String action = request.getPathInfo();
 		System.out.println("action:"+action); //확인용
 		
@@ -66,6 +65,8 @@ public class ControllerBoard extends HttpServlet {
 						request.getParameter("currentPageBR"), 
 						service.countPageR(request.getParameter("postNum")));
 				request.setAttribute("rpp", rpp);
+				if(service.recmdCheck(request.getParameter("postNum"))) {request.setAttribute("blRecmd", "true");}
+				else {request.setAttribute("blRecmd", "false");}
 				break;
 			case "/edit_insert":
 				if(service.adminRight()) {
@@ -98,11 +99,11 @@ public class ControllerBoard extends HttpServlet {
 				service.editReply(request.getParameter("editReplyNum"), request.getParameter("postNum")); 
 				break;
 			case "/replyWrite":
-				if(request.getParameter("id").equals("null") || request.getParameter("id")==null) {
+				if(service.getIdSession().equals("null")) {
 					nextPage = "/board/rightWriteR_login?num="+request.getParameter("postNum")+"&category="+request.getParameter("category");}
 				else {
 					nextPage = "/board/read?postNum="+request.getParameter("postNum")+"&category="+request.getParameter("category");
-					DB.dtoR = new DTOreply(request.getParameter("postNum"), request.getParameter("id"), request.getParameter("point"), request.getParameter("text")); 
+					DB.dtoR = new DTOreply(request.getParameter("postNum"), service.getIdSession(), request.getParameter("point"), request.getParameter("text")); 
 					service.writeReply(request.getParameter("postNum"));}
 				break;
 			case "/rightWrite_login":
@@ -123,10 +124,16 @@ public class ControllerBoard extends HttpServlet {
 				break;
 			case "/logout":
 				nextPage = "/index.jsp";
-				service.logout(); // 리퀘스트전달 todo //
+				service.logout(); 
 				break;
 			case "/recommand":
-				nextPage = "/board/read?postNum="+request.getParameter("postNum")+"&category="+request.getParameter("category");
+				if(service.getIdSession().equals("null")) {
+					System.out.println("recommand id null.");
+					nextPage = "/board/rightWriteR_login?num="+request.getParameter("postNum")+"&category="+request.getParameter("category");}
+				else {
+					System.out.println("recommand id check.");
+					nextPage = "/board/read?postNum="+request.getParameter("postNum")+"&category="+request.getParameter("category");
+					service.recmdUpDown(service.recmdCheck(request.getParameter("postNum")), request.getParameter("postNum"));}
 				break;
 			}
 		}
@@ -185,7 +192,7 @@ public class ControllerBoard extends HttpServlet {
 			    }
 				
 				DB.dto = new DTOres(multi.getParameter("title"), 
-						multi.getParameter("id"), 
+						service.getIdSession(), 
 						multi.getParameter("text"), 
 						multi.getParameter("adress_select"),
 						multi.getParameter("tel"),

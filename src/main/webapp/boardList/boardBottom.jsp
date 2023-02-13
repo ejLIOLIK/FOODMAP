@@ -9,7 +9,7 @@
 <body>
 <%
 String checkID = (String)session.getAttribute("id");
-if(checkID==null || !request.isRequestedSessionIdValid()){
+if(checkID==null || checkID.equals("null")){ // 글쓰기 체크 컨트롤러에서 하도록 수정 예정
 %><a href="/board/rightWrite_login?category=<%=request.getParameter("category")%>">글쓰기</a> 	
 <%}
 else{	

@@ -9,7 +9,7 @@
 <body>
 <% 
 String id = (String)session.getAttribute("id");
-if(id==null || !request.isRequestedSessionIdValid()){
+if(id==null || id.equals("null")){
 	%>손님<%
 }
 else{%>

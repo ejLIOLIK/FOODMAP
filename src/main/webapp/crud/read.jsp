@@ -35,7 +35,14 @@ else{
 
 <!-- 추천 완료 / 이미 추천한 경우 팝업 메시지 / 추천 취소? -->
 <!-- 추천 여부 미리 검사해서 버튼 이모지 다르게 띄우기 -->
-추천하시겠습니까? <button type="button" onclick='/board/recommand?category=<%=request.getParameter("category")%>&postNum=<%=request.getParameter("postNum")%>'>👍</button> 
+<% 
+if(request.getAttribute("blRecmd").equals("true")){
+	%>추천 취소 <button type="button" onclick="location.href='/board/recommand?category=<%=request.getParameter("category")%>&postNum=<%=request.getParameter("postNum")%>'">👎</button> <%	
+}
+else{
+%>추천 <button type="button" onclick="location.href='/board/recommand?category=<%=request.getParameter("category")%>&postNum=<%=request.getParameter("postNum")%>'">👍</button> <%
+}
+%>
 
 <hr>
 <!-- ---리플------------------------------------ -->

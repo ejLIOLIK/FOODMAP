@@ -11,7 +11,7 @@
 <form action="/board/replyWrite" method="get">
 
 ID: <%@include file = "/loginInfo.jsp" %>
-<input type="hidden" name="id" value="<%=id%>"><br>
+<%-- <input type="hidden" name="id" value="<%=id%>"><br> --%>
 <input type="number" max="5" min="0" name="point">
 <textarea name="text"></textarea>
 <input type="hidden" name="postNum" value="<%=DB.dto.num%>">

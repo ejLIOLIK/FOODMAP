@@ -20,6 +20,19 @@ public class boardProc {
 	public String categoryEcd;
 	int curPagingPage;
 	int curPage;
+	
+	public int getCurPagingPage() {
+		return curPagingPage;
+	}
+
+	public int getCurPage() {
+		return curPage;
+	}
+
+	public int getTotalPage() {
+		return totalPage;
+	}
+
 	int totalPage;
 	ArrayList<DTOres> list;
 	ArrayList<DTOjoin> listJ;
@@ -110,25 +123,23 @@ public class boardProc {
 		
 		int countPost = 0;
 		for(DTOres d:list){
-			html += String.format("%s/%s/%s/", d.num, d.adress, d.point);
+			html += String.format("<tr><td>%s</td><td>%s</td><td>%s</td>", d.num, d.adress, d.point);
 
 			if(d.img==null || d.img.equals("null")){ // 썸네일
-				html += " <img src='\\upload\\no.jpg' alt='img' width='30'> ";
+				html += "<td> <img src='\\upload\\no.jpg' alt='img' width='30'> ";
 			}
 			else{
-				html += " <img src='\\upload\\" + d.img + "' alt='img' width='30'> ";
+				html += "<td> <img src='\\upload\\" + d.img + "' alt='img' width='30'> ";
 			}
 			
-			html += String.format("<a href='/board/read?category=%s&postNum=%s&currentPage=%d&sort=%s&keyword=%s&keywordRange=%s'>%s</a> [%s] %s %s<br>", 
+			html += String.format("<a href='/board/read?category=%s&postNum=%s&currentPage=%d&sort=%s&keyword=%s&keywordRange=%s'>%s</a> [%s]</td><td> %s </td><td> %s <td/></tr>", 
 					categoryEcd, d.num, curPage, sort, keywordEcd, keywordRange, d.title, d.reply, d.hit, d.recmd);
 			countPost++;
 		}
 		if(countPost<DB.PAGINGNUM){
 			for(int i=0;i<DB.PAGINGNUM-countPost;i++){
-				html +="<br>";	} // 빈 공간 공백 채워줌
+				html +="<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>";	} // 빈 공간 공백 채워줌
 		}
-		html+="<hr>";
-		
 		return html;
 	}
 	
@@ -141,27 +152,25 @@ public class boardProc {
 		for(DTOjoin d:listJ){
 //			게시글번호 / 게시글 평점 / 게시글 제목[리플수]
 //					ㄴ 리플평점 / 리플내용
-			html += String.format("%s/%s/%s/", 
+			html += String.format("<tr><td>%s</td><td>%s</td><td>%s</td>", 
 					d.Pnum, d.adress, d.point);
 					
 			if(d.img==null || d.img.equals("null")){ // 썸네일
-				html += " <img src='\\upload\\no.jpg' alt='img' width='30'> ";
+				html += "<td> <img src='\\upload\\no.jpg' alt='img' width='30'> ";
 			}
 			else{
-				html += " <img src='\\upload\\" + d.img + "' alt='img' width='30'> ";
+				html += "<td> <img src='\\upload\\" + d.img + "' alt='img' width='30'> ";
 			}
 					
-			html += String.format("<a href='/board/read?postNum=%s&currentPage=%d&sort=%s&keyword=%s&keywordRange=%s'>%s</a> [%s]<br>"
-					+ "└ %s/%s/%s <br>", 
+			html += String.format("<a href='/board/read?postNum=%s&currentPage=%d&sort=%s&keyword=%s&keywordRange=%s'>%s</a> [%s]</td>"
+					+ "<td>%s</td><td>%s</td><td>%s</td></tr>", 
 					d.Pnum, curPage, sort, keywordEcd, keywordRange, d.title, d.reply, d.pointR, d.text, d.date);
 			countPost++;
 		}
 		if(countPost<DB.PAGINGNUM){
 			for(int i=0;i<DB.PAGINGNUM-countPost;i++){
-				html +="<br>";	} // 빈 공간 공백 채워줌
+				html +="<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>";	} // 빈 공간 공백 채워줌
 		}
-		html+="<hr>";
-		
 		return html;
 	}
 	

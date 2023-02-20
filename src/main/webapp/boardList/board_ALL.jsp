@@ -1,41 +1,29 @@
 <%@ page import="PROC.boardProc" %>
-<%@ page import="DAO.DAOsearch" %>
-<%@ page import="DAO.DAOcrud" %>
-<%@ page import="DTO.DTOres" %>
-<%@ page import="DB.DB" %>
-<%@ page import="java.util.ArrayList" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+<title> BOARD </title>
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+        <link href="/css/styles.css" rel="stylesheet" />
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
 </head>
-<body>
-
-<%@include file="/homeButton.jsp" %>
-<%@include file="/messageAlert.jsp" %>
+<body class="sb-nav-fixed">
 
 <%
 boardProc blp = (boardProc)request.getAttribute("blp");
 %>
 
-<!-- 검색 / 정렬 / 리스트바 인크루드 -->
-<%@include file = "/boardList/boardTop.jsp" %>
-
-<!-- 리스트 페이징 -->
-<%if(blp.blSearchCheck() && blp.keywordRange.equals("reply")){%>
-	<%=blp.htmlBoardListSearchReply()%><%}
-else{
-	%><%=blp.htmlBoardList()%>
-<%}%>
-
-<%=blp.htmlBoardPage()%>
-	<br>
-
-<!-- 글쓰기 / 전체글보기 등  -->
-<%@include file = "/boardList/boardBottom.jsp" %>
+	<%@include file="/messageAlert.jsp" %>
+	<%@include file="/topView.jsp" %>
+	<%@include file="/leftView.jsp" %>
+	<%@include file="/mainView.jsp" %>
 
 </body>
 </html>

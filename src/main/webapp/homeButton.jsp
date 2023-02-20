@@ -7,7 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<a href="/index.jsp">HOME</a>
-<hr>
+<h3 class="text-center font-weight-light my-4"><a href="/index.jsp">🏠</a></h3>
 </body>
 </html>

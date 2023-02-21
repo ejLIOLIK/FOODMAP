@@ -126,10 +126,10 @@ public class boardProc {
 			html += String.format("<tr><td>%s</td><td>%s</td><td>%s</td>", d.num, d.adress, d.point);
 
 			if(d.img==null || d.img.equals("null")){ // 썸네일
-				html += "<td> <img src='\\upload\\no.jpg' alt='img' width='30'> ";
+				html += "<td> <img src='\\writeImg\\no.jpg' alt='img' width='30'> ";
 			}
 			else{
-				html += "<td> <img src='\\upload\\" + d.img + "' alt='img' width='30'> ";
+				html += "<td> <img src='\\writeImg\\" + d.img + "' alt='img' width='30'> ";
 			}
 			
 			html += String.format("<a href='/board/read?category=%s&postNum=%s&currentPage=%d&sort=%s&keyword=%s&keywordRange=%s'>%s</a> [%s]</td><td> %s </td><td> %s <td/></tr>", 

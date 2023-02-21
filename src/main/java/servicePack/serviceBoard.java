@@ -89,6 +89,7 @@ public class serviceBoard {
 	
 	public void logout() {
 		if(!getIdSession().equals("null")) {
+			session.removeAttribute("id");
 			session.invalidate();
 		}
 	}

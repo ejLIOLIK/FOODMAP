@@ -174,7 +174,8 @@ public class ControllerBoard extends HttpServlet {
 					nextPage = "/memjoin.jsp";}
 				break;
 			case "/write":
-				saveFolder = request.getServletContext().getRealPath("/upload");
+				saveFolder = request.getSession().getServletContext().getRealPath("/writeImg");
+				System.out.println(saveFolder);
 				multi = null;
 				fileNameTemp = "";
 			    
@@ -183,7 +184,7 @@ public class ControllerBoard extends HttpServlet {
 			        		DB.encType, new DefaultFileRenamePolicy());
 			        
 			        String fileName = multi.getFilesystemName("fileName");
-			        fileNameTemp = fileName; //"\\upload\\" 파일명만 저장하고 가져올 때 가공.
+			        fileNameTemp = fileName; 
 
 			    } catch (IOException ioe) {
 			        System.out.println(ioe);
@@ -202,7 +203,8 @@ public class ControllerBoard extends HttpServlet {
 				nextPage = "/listGate.jsp";
 				break;
 			case "/edit_proc":
-				saveFolder = request.getServletContext().getRealPath("/upload");
+				saveFolder = request.getSession().getServletContext().getRealPath("/writeImg"); 
+				System.out.println(saveFolder);
 				multi = null;
 				fileNameTemp = "";
 			    

@@ -34,23 +34,26 @@
                                 조회수 / <%=DB.dto.hit %> <br>
 								추천 / <%=DB.dto.recmd %> <br>    
 								<% 
-								if(DB.dto.img==null || DB.dto.img.equals("null")){
-									%><img src="\upload\no.jpg" alt="img" width="200"><%
+								if(DB.dto.img==null){
+									%><img src='/writeImg/no.jpg' alt='img' width='200'><%
 								}
 								else{
-									%><img src="\upload\<%=DB.dto.img%>" alt="img" width="200"><%
+									%><img src='/writeImg/<%=DB.dto.img%>' alt='img' width='200'><%
 								}
 								%> <br>
 								<!-- - -->
 								내용 / <%=DB.dto.text%> <br>
 								주소 / <%=DB.dto.adress%> <br>
 								전화번호 / <%=DB.dto.tel%> <br>
+								<hr>
+		                        <br><a href="/board/delete?category=<%=request.getParameter("category")%>&delNum=<%=DB.dto.num%>">삭제</a>
+								<a href="/board/edit_insert?category=<%=request.getParameter("category")%>&editNum=<%=DB.dto.num%>">수정</a>
+								<hr>
                                 </p>
                             </div>
                         </div>
                         <div style="height: 100vh"> 
-                        <br><a href="/board/delete?category=<%=request.getParameter("category")%>&delNum=<%=DB.dto.num%>">삭제</a>
-						<br><a href="/board/edit_insert?category=<%=request.getParameter("category")%>&editNum=<%=DB.dto.num%>">수정</a>
+						<%@include file = "/reply/reply.jsp" %>
                         </div>
                         <div class="card mb-4"><div class="card-body">When scrolling, the navigation stays at the top of the page. This is the end of the static navigation demo.</div></div>
                     </div>

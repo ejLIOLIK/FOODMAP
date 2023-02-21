@@ -3,43 +3,35 @@
 <!DOCTYPE html>
 <html>
 <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Index</title>
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+        <link href="/css/styles.css" rel="stylesheet" />
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
 </head>
-<body>
-HOME
-<hr>
-ID: <%@include file = "loginInfo.jsp"%>
-<hr>
-<a href="/board/list">전체게시판</a> <br>
-<hr>
-지역별 <br>
-<a href="/board/list?category=서울">서울</a> 
-<a href="/board/list?category=인천">인천</a> 
-<a href="/board/list?category=경기">경기</a> <br>
-<a href="/board/list?category=강원">강원</a> 
-<a href="/board/list?category=충북">충북</a> 
-<a href="/board/list?category=충남">충남</a> 
-<a href="/board/list?category=대전">대전</a> <br>
-<a href="/board/list?category=전북">전북</a> 
-<a href="/board/list?category=전남">전남</a> 
-<a href="/board/list?category=광주">광주</a> <br>
-<a href="/board/list?category=부산">부산</a> 
-<a href="/board/list?category=울산">울산</a> 
-<a href="/board/list?category=대구">대구</a> 
-<a href="/board/list?category=경북">경북</a> 
-<a href="/board/list?category=경남">경남</a> <br>
-<a href="/board/list?category=제주">제주</a> <br>
-<hr>
+<body class="sb-nav-fixed">
 
-<% 
-if(id==null || !request.isRequestedSessionIdValid()){
-	%><a href="/login.jsp">로그인/회원가입</a><%
-}
-else{
-	%><a href="/board/logout">로그아웃</a><%
-}
-%>
-<br><br><br>developed by ejLIOLIK
+	<%@include file="/messageAlert.jsp" %>
+	<%@include file="/topView.jsp" %>
+	<%@include file="/leftView.jsp" %>
+	<div id="layoutSidenav_content">
+                <main>
+                <div class="container-fluid px-4">
+                <h1 class="mt-4"> FOOD MAP </h1>
+                </div>
+                    
+                </main>
+	</div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="js/scripts.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+        <script src="js/datatables-simple-demo.js"></script>
+</body>
+
 </body>
 </html>

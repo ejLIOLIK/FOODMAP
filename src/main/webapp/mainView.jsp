@@ -20,7 +20,7 @@
                     <div class="container-fluid px-4">
                         <h1 class="mt-4">🍕 Food Map</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item"><a href="index.html"> 전체글 </a></li>
+                            <li class="breadcrumb-item"><a href="/board/write"> 글쓰기 </a></li>
                             <%if(blp.category!=null){ %>
                             <li class="breadcrumb-item active"><%=blp.category %></li> <%} %>
                         </ol>
@@ -29,6 +29,7 @@
                                 지역별 음식점 평점을 아카이빙합니다.
                             </div>
                         </div>
+                        
                         <div class="card mb-4">
                             <div class="card-header">
 
@@ -70,16 +71,6 @@
                                         </tr>
                                         <%}%>
                                     </thead>
-<!--                                     <tfoot> -->
-<!--                                         <tr> -->
-<!--                                             <th>no.</th> -->
-<!--                                             <th>지역</th> -->
-<!--                                             <th>평점</th> -->
-<!--                                             <th>title</th> -->
-<!--                                             <th>조회수</th> -->
-<!--                                             <th>추천수</th> -->
-<!--                                         </tr> -->
-<!--                                     </tfoot> -->
                                     <tbody>
 <%if(blp.blSearchCheck() && blp.keywordRange.equals("reply")){%>
 	<%=blp.htmlBoardListSearchReply()%><%}

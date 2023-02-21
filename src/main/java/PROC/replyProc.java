@@ -10,8 +10,21 @@ public class replyProc { // 리플 관련 이동예정
 	
 	public ArrayList<DTOreply> listR;
 	DAOreply daoR = new DAOreply();
-	int currentPageRN, currentPageBRN;
-	int totalPageR;
+	public int currentPageRN, currentPageBRN;
+	public int totalPageR;
+	
+	public int getCurrentPageRN() {
+		return currentPageRN;
+	}
+
+	public int getCurrentPageBRN() {
+		return currentPageBRN;
+	}
+
+	public int getTotalPageR() {
+		return totalPageR;
+	}
+
 	String postNum;
 
 	public replyProc(String postNum, String currentPageR, String currentPageBR, int totalPageR) {
